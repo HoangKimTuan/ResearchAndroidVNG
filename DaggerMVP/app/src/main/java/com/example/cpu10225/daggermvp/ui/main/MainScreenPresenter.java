@@ -1,6 +1,9 @@
 package com.example.cpu10225.daggermvp.ui.main;
 
-import com.example.cpu10225.daggermvp.data.Post;
+import com.example.cpu10225.daggermvp.data.db.BaseGetData;
+import com.example.cpu10225.daggermvp.data.db.Post;
+import com.example.cpu10225.daggermvp.di.ActivityContract;
+import com.example.cpu10225.daggermvp.service.DataService;
 import com.example.cpu10225.daggermvp.util.AppConstants;
 
 import java.util.List;
@@ -18,41 +21,37 @@ import rx.schedulers.Schedulers;
  * Created by cpu10225 on 14/11/2017.
  */
 
-public class MainScreenPresenter implements MainScreenContract.Presenter {
+public class MainScreenPresenter implements ActivityContract.Presenter {
     Retrofit mRetrofit;
-    MainScreenContract.View mView;
+    ActivityContract.View mView;
 
     @Inject
-    public MainScreenPresenter(Retrofit mRetrofit, MainScreenContract.View mView) {
+    public MainScreenPresenter(Retrofit mRetrofit, ActivityContract.View mView) {
         this.mRetrofit = mRetrofit;
         this.mView = mView;
     }
 
     @Override
-    public void loadPost() {
-        mRetrofit.create(PostService.class).getPostlist().subscribeOn(Schedulers.io())
+    public void loadData() {
+        mRetrofit.create(DataService.PostService.class).getPostlist().subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())
                 .subscribe(new Observer<List<Post>>() {
-                    @Override
-                    public void onCompleted() {
-                        mView.showComplete();
-                    }
+                           @Override
+                           public void onCompleted() {
+                               mView.showComplete();
+                           }
 
-                    @Override
-                    public void onError(Throwable e) {
-                        mView.showError(e.getMessage());
-                    }
+                           @Override
+                           public void onError(Throwable e) {
+                               mView.showError(e.getMessage());
+                           }
 
-                    @Override
-                    public void onNext(List<Post> posts) {
-                        mView.showPosts(posts);
-                    }
-                });
-    }
-
-    private interface PostService {
-        @GET(AppConstants.GET_POSTS)
-        Observable<List<Post>> getPostlist();
+                           @Override
+                           public void onNext(List<Post> posts) {
+                                mView.showData(posts);
+                           }
+                       }
+                );
     }
 }

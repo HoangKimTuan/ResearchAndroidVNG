@@ -1,10 +1,10 @@
-package com.example.cpu10225.daggermvp.data;
+package com.example.cpu10225.daggermvp.data.db;
 
 /**
  * Created by cpu10225 on 14/11/2017.
  */
 
-public class Comment {
+public class Comment implements BaseGetData {
     private final int postId;
     private final int id;
     private final String name;

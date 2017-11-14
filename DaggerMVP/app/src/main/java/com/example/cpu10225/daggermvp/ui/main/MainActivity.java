@@ -8,14 +8,18 @@ import android.widget.Toast;
 
 import com.example.cpu10225.daggermvp.App;
 import com.example.cpu10225.daggermvp.R;
-import com.example.cpu10225.daggermvp.data.Post;
+import com.example.cpu10225.daggermvp.data.db.BaseGetData;
+import com.example.cpu10225.daggermvp.data.db.Post;
+import com.example.cpu10225.daggermvp.di.ActivityContract;
+import com.example.cpu10225.daggermvp.di.ActivityModule;
+import com.example.cpu10225.daggermvp.di.DaggerActivityComponent;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
-public class MainActivity extends AppCompatActivity implements MainScreenContract.View {
+public class MainActivity extends AppCompatActivity implements ActivityContract.View {
     ListView lvPost;
     ArrayList<String> list;
     ArrayAdapter<String> adapter;
@@ -23,7 +27,6 @@ public class MainActivity extends AppCompatActivity implements MainScreenContrac
     @Inject
     MainScreenPresenter mainScreenPresenter;
 
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -31,17 +34,17 @@ public class MainActivity extends AppCompatActivity implements MainScreenContrac
         lvPost = findViewById(R.id.lvPost);
         list = new ArrayList<>();
 
-        DaggerMainScreenComponent.builder()
+        DaggerActivityComponent.builder()
                 .netComponent(((App) getApplicationContext()).getNetComponent())
-                .mainScreenModule(new MainScreenModule(this))
+                .activityModule(new ActivityModule(this))
                 .build().inject(this);
-        mainScreenPresenter.loadPost();
+        mainScreenPresenter.loadData();
     }
 
     @Override
-    public void showPosts(List<Post> posts) {
-        for (int i = 0; i < posts.size(); i++) {
-            list.add(posts.get(i).getTitle());
+    public void showData(List<BaseGetData> listData) {
+        for (int i = 0; i < listData.size(); i++) {
+            list.add(((Post)listData.get(i)).getTitle());
         }
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, list);
         lvPost.setAdapter(adapter);
