@@ -7,4 +7,5 @@ package com.example.cpu10225.daggermvp.util;
 public final class AppConstants {
     public static final String BASE_URL = "http://jsonplaceholder.typicode.com/";
     public static final String GET_POSTS = "/posts";
+    public static final String GET_COMMENTS = "/comments";
 }

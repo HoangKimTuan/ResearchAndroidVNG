@@ -2,10 +2,9 @@ package com.example.cpu10225.daggermvp;
 
 import android.app.Application;
 
-import com.example.cpu10225.daggermvp.data.component.DaggerNetComponent;
-import com.example.cpu10225.daggermvp.data.component.NetComponent;
-import com.example.cpu10225.daggermvp.data.module.AppModule;
-import com.example.cpu10225.daggermvp.data.module.NetModule;
+import com.example.cpu10225.daggermvp.di.component.ApplicationComponent;
+import com.example.cpu10225.daggermvp.di.component.DaggerApplicationComponent;
+import com.example.cpu10225.daggermvp.di.module.ApplicationModule;
 import com.example.cpu10225.daggermvp.util.AppConstants;
 
 /**
@@ -13,18 +12,16 @@ import com.example.cpu10225.daggermvp.util.AppConstants;
  */
 
 public class App extends Application {
-    private NetComponent mNetComponent;
+    private ApplicationComponent mApplicationComponent;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        mNetComponent = DaggerNetComponent.builder()
-                .appModule(new AppModule(this))
-                .netModule(new NetModule(AppConstants.BASE_URL))
-                .build();
+        mApplicationComponent = DaggerApplicationComponent.builder()
+                .applicationModule(new ApplicationModule(this, AppConstants.BASE_URL)).build();
     }
 
-    public NetComponent getNetComponent() {
-        return mNetComponent;
+    public ApplicationComponent getComponent() {
+        return mApplicationComponent;
     }
 }

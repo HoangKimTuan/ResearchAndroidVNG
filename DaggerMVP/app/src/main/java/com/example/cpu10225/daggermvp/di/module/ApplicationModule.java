@@ -1,9 +1,15 @@
-package com.example.cpu10225.daggermvp.data.module;
+package com.example.cpu10225.daggermvp.di.module;
+
+/**
+ * Created by cpu10225 on 17/11/2017.
+ */
 
 import android.app.Application;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import com.example.cpu10225.daggermvp.util.anotation.CustomScope;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -18,16 +24,26 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-/**
- * Created by cpu10225 on 14/11/2017.
- */
-
 @Module
-public class NetModule {
-    String mBaseUrl;
+public class ApplicationModule {
+    private final Application mApplication;
+    private final String mBaseUrl;
 
-    public NetModule(String mBaseUrl) {
+
+    public ApplicationModule(Application mApplication, String mBaseUrl) {
+        this.mApplication = mApplication;
         this.mBaseUrl = mBaseUrl;
+    }
+
+    @Provides
+    @CustomScope
+    Context provideContext() {
+        return mApplication;
+    }
+
+    @Provides
+    Application provideApplication() {
+        return mApplication;
     }
 
     @Provides

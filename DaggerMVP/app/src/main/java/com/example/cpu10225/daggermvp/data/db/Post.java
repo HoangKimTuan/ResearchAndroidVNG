@@ -4,7 +4,7 @@ package com.example.cpu10225.daggermvp.data.db;
  * Created by cpu10225 on 14/11/2017.
  */
 
-public class Post implements BaseGetData {
+public class Post {
     private final Integer userId;
     private final Integer id;
     private final String title;
@@ -31,5 +31,10 @@ public class Post implements BaseGetData {
 
     public String getBody() {
         return body;
+    }
+
+    @Override
+    public String toString() {
+        return getTitle();
     }
 }

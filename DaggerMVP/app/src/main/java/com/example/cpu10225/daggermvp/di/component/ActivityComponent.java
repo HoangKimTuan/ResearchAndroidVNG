@@ -1,6 +1,6 @@
-package com.example.cpu10225.daggermvp.di;
+package com.example.cpu10225.daggermvp.di.component;
 
-import com.example.cpu10225.daggermvp.data.component.NetComponent;
+import com.example.cpu10225.daggermvp.di.module.ActivityModule;
 import com.example.cpu10225.daggermvp.ui.comment.CommentActivity;
 import com.example.cpu10225.daggermvp.ui.main.MainActivity;
 import com.example.cpu10225.daggermvp.util.anotation.CustomScope;
@@ -12,7 +12,7 @@ import dagger.Component;
  */
 
 @CustomScope
-@Component(dependencies = NetComponent.class, modules = {ActivityModule.class})
+@Component(dependencies = ApplicationComponent.class, modules = {ActivityModule.class})
 public interface ActivityComponent {
     void inject(MainActivity mainActivity);
     void inject(CommentActivity commentActivity);
