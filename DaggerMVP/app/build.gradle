@@ -49,4 +49,8 @@ dependencies {
 
     //EventBUS
     compile 'org.greenrobot:eventbus:3.1.1'
+
+    //GreenDAO
+    compile 'org.greenrobot:greendao:3.2.2'
+    compile 'org.greenrobot:greendao-generator:3.2.2'
 }
