@@ -1,9 +1,7 @@
 package com.example.cpu10225.daggermvp.ui.main;
 
 import com.example.cpu10225.daggermvp.data.DataManager;
-import com.example.cpu10225.daggermvp.data.network.ApiHelper;
 import com.example.cpu10225.daggermvp.data.network.model.Post;
-import com.example.cpu10225.daggermvp.ui.base.BaseMvpView;
 import com.example.cpu10225.daggermvp.ui.base.BasePresenter;
 
 import org.greenrobot.eventbus.EventBus;
@@ -18,13 +16,15 @@ import rx.Observer;
  * Created by cpu10225 on 14/11/2017.
  */
 
-public class MainPresenter<V extends MainMvpView> extends BasePresenter implements MainMvpPresenter {
-    private V view;
-
+public class MainPresenter<V extends MainMvpView> extends BasePresenter<V> implements MainMvpPresenter<V> {
     @Inject
-    public MainPresenter(DataManager mDataManager, BaseMvpView mView) {
-        super(mDataManager, mView);
-        view = (V) mView;
+    public MainPresenter(DataManager mDataManager) {
+        super(mDataManager);
+    }
+
+    @Override
+    public void onAttach(V mvpView) {
+        super.onAttach(mvpView);
     }
 
     @Override
@@ -32,17 +32,17 @@ public class MainPresenter<V extends MainMvpView> extends BasePresenter implemen
         getDataManager().getPostList().subscribe(new Observer<List<Post>>() {
             @Override
             public void onCompleted() {
-                view.showComplete();
+                getMvpView().showComplete();
             }
 
             @Override
             public void onError(Throwable e) {
-                view.showError(e.getMessage());
+                getMvpView().showError(e.getMessage());
             }
 
             @Override
             public void onNext(List<Post> posts) {
-                view.showPost(posts);
+                getMvpView().showPost(posts);
             }
         });
     }

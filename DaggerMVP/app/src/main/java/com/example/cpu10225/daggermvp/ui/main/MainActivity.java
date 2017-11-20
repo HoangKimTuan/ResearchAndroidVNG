@@ -24,7 +24,7 @@ public class MainActivity extends BaseActivity implements MainMvpView {
     ArrayAdapter<Post> adapter;
 
     @Inject
-    MainMvpPresenter mPresenter;
+    MainMvpPresenter<MainMvpView> mPresenter;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +41,7 @@ public class MainActivity extends BaseActivity implements MainMvpView {
         list = new ArrayList<>();
 
         getActivityComponent().inject(this);
+        mPresenter.onAttach(this);
         mPresenter.loadPost();
     }
 

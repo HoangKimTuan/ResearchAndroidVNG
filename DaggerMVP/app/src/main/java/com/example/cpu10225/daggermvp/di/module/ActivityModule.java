@@ -10,7 +10,6 @@ import com.example.cpu10225.daggermvp.ui.main.MainPresenter;
 
 import dagger.Module;
 import dagger.Provides;
-import retrofit2.Retrofit;
 
 /**
  * Created by cpu10225 on 14/11/2017.
@@ -30,13 +29,13 @@ public class ActivityModule {
     }
 
     @Provides
-    MainMvpPresenter provideMainMvpPresenter(MainPresenter<MainMvpView> presenter)
+    MainMvpPresenter<MainMvpView> provideMainMvpPresenter(MainPresenter<MainMvpView> presenter)
     {
         return presenter;
     }
 
     @Provides
-    CommentMvpPresenter provideCommentMvpPresenter(CommentPresenter<CommentMvpView> presenter)
+    CommentMvpPresenter<CommentMvpView> provideCommentMvpPresenter(CommentPresenter<CommentMvpView> presenter)
     {
         return presenter;
     }

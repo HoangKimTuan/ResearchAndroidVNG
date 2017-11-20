@@ -10,14 +10,13 @@ import retrofit2.Retrofit;
  * Created by cpu10225 on 17/11/2017.
  */
 
-public class BasePresenter<V extends BaseMvpView> implements BaseMvpPresenter {
+public class BasePresenter<V extends BaseMvpView> implements BaseMvpPresenter<V> {
     private final DataManager mDataManager;
-    private final V mView;
+    private V mView;
 
     @Inject
-    public BasePresenter(DataManager mDataManager, V mView) {
+    public BasePresenter(DataManager mDataManager) {
         this.mDataManager = mDataManager;
-        this.mView = mView;
     }
 
     public DataManager getDataManager() {
@@ -26,5 +25,15 @@ public class BasePresenter<V extends BaseMvpView> implements BaseMvpPresenter {
 
     public V getMvpView() {
         return mView;
+    }
+
+    @Override
+    public void onAttach(V mvpView) {
+        mView = mvpView;
+    }
+
+    @Override
+    public void onDetach() {
+        mView = null;
     }
 }

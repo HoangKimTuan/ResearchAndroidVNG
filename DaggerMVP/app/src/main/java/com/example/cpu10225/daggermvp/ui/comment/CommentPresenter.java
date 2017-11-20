@@ -19,13 +19,10 @@ import rx.schedulers.Schedulers;
  * Created by cpu10225 on 17/11/2017.
  */
 
-public class CommentPresenter<V extends CommentMvpView> extends BasePresenter implements CommentMvpPresenter {
-    private V view;
-
+public class CommentPresenter<V extends CommentMvpView> extends BasePresenter<V> implements CommentMvpPresenter<V> {
     @Inject
-    public CommentPresenter(DataManager mDataManager, BaseMvpView mView) {
-        super(mDataManager, mView);
-        view = (V) mView;
+    public CommentPresenter(DataManager mDataManager) {
+        super(mDataManager);
     }
 
     @Override
@@ -33,17 +30,17 @@ public class CommentPresenter<V extends CommentMvpView> extends BasePresenter im
         getDataManager().getCommentList(postId).subscribe(new Observer<List<Comment>>() {
             @Override
             public void onCompleted() {
-                view.showComplete();
+                getMvpView().showComplete();
             }
 
             @Override
             public void onError(Throwable e) {
-                view.showError(e.getMessage());
+                getMvpView().showError(e.getMessage());
             }
 
             @Override
             public void onNext(List<Comment> comments) {
-                view.showComment(comments);
+                getMvpView().showComment(comments);
             }
         });
     }

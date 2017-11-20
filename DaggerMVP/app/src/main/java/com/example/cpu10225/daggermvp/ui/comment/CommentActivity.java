@@ -23,7 +23,7 @@ public class CommentActivity extends BaseActivity implements CommentMvpView {
     CommentAdapter adapter;
 
     @Inject
-    CommentMvpPresenter mPresenter;
+    CommentMvpPresenter<CommentMvpView> mPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +34,7 @@ public class CommentActivity extends BaseActivity implements CommentMvpView {
         list = new ArrayList<>();
 
         getActivityComponent().inject(this);
+        mPresenter.onAttach(this);
     }
 
     @Override
