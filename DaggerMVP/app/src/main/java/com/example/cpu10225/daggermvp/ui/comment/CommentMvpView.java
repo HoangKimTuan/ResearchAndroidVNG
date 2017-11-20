@@ -1,7 +1,6 @@
 package com.example.cpu10225.daggermvp.ui.comment;
 
-import com.example.cpu10225.daggermvp.data.db.Comment;
-import com.example.cpu10225.daggermvp.data.db.Post;
+import com.example.cpu10225.daggermvp.data.network.model.Comment;
 import com.example.cpu10225.daggermvp.ui.base.BaseMvpView;
 
 import java.util.List;

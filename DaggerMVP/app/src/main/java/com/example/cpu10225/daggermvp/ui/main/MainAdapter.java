@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import com.example.cpu10225.daggermvp.data.db.Post;
+import com.example.cpu10225.daggermvp.data.network.model.Post;
 import com.example.cpu10225.daggermvp.R;
 
 /**

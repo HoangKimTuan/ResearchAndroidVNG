@@ -5,7 +5,6 @@ import android.app.Application;
 import com.example.cpu10225.daggermvp.di.component.ApplicationComponent;
 import com.example.cpu10225.daggermvp.di.component.DaggerApplicationComponent;
 import com.example.cpu10225.daggermvp.di.module.ApplicationModule;
-import com.example.cpu10225.daggermvp.util.AppConstants;
 
 /**
  * Created by cpu10225 on 14/11/2017.
@@ -18,7 +17,7 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         mApplicationComponent = DaggerApplicationComponent.builder()
-                .applicationModule(new ApplicationModule(this, AppConstants.BASE_URL)).build();
+                .applicationModule(new ApplicationModule(this)).build();
     }
 
     public ApplicationComponent getComponent() {

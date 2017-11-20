@@ -9,7 +9,17 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-import com.example.cpu10225.daggermvp.util.anotation.CustomScope;
+import com.example.cpu10225.daggermvp.BuildConfig;
+import com.example.cpu10225.daggermvp.data.AppDataManager;
+import com.example.cpu10225.daggermvp.data.DataManager;
+import com.example.cpu10225.daggermvp.data.db.AppDbHelper;
+import com.example.cpu10225.daggermvp.data.db.DbHelper;
+import com.example.cpu10225.daggermvp.data.db.DbOpenHelper;
+import com.example.cpu10225.daggermvp.data.network.ApiHelper;
+import com.example.cpu10225.daggermvp.data.network.AppApiHelper;
+import com.example.cpu10225.daggermvp.util.AppConstants;
+import com.example.cpu10225.daggermvp.util.anotation.ApplicationContext;
+import com.example.cpu10225.daggermvp.util.anotation.DatabaseInfo;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -27,18 +37,21 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @Module
 public class ApplicationModule {
     private final Application mApplication;
-    private final String mBaseUrl;
 
-
-    public ApplicationModule(Application mApplication, String mBaseUrl) {
+    public ApplicationModule(Application mApplication) {
         this.mApplication = mApplication;
-        this.mBaseUrl = mBaseUrl;
     }
 
     @Provides
-    @CustomScope
+    @ApplicationContext
     Context provideContext() {
         return mApplication;
+    }
+
+    @Provides
+    @DatabaseInfo
+    String provideDatabaseName() {
+        return AppConstants.DB_NAME;
     }
 
     @Provides
@@ -82,9 +95,27 @@ public class ApplicationModule {
         Retrofit retrofit = new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .baseUrl(mBaseUrl)
+                .baseUrl(BuildConfig.BASE_URL)
                 .client(okHttpClient)
                 .build();
         return retrofit;
+    }
+
+    @Provides
+    @Singleton
+    DbHelper provideDbHelper(AppDbHelper appDbHelper) {
+        return appDbHelper;
+    }
+
+    @Provides
+    @Singleton
+    ApiHelper provideApiHelper(AppApiHelper appApiHelper) {
+        return appApiHelper;
+    }
+
+    @Provides
+    @Singleton
+    DataManager provideDataManager(AppDataManager appDataManager) {
+        return appDataManager;
     }
 }

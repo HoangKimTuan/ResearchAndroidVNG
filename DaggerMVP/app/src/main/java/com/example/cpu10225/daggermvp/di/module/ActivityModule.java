@@ -2,10 +2,11 @@ package com.example.cpu10225.daggermvp.di.module;
 
 import com.example.cpu10225.daggermvp.ui.base.BaseMvpView;
 import com.example.cpu10225.daggermvp.ui.comment.CommentMvpPresenter;
+import com.example.cpu10225.daggermvp.ui.comment.CommentMvpView;
 import com.example.cpu10225.daggermvp.ui.comment.CommentPresenter;
 import com.example.cpu10225.daggermvp.ui.main.MainMvpPresenter;
+import com.example.cpu10225.daggermvp.ui.main.MainMvpView;
 import com.example.cpu10225.daggermvp.ui.main.MainPresenter;
-import com.example.cpu10225.daggermvp.util.anotation.CustomScope;
 
 import dagger.Module;
 import dagger.Provides;
@@ -24,22 +25,19 @@ public class ActivityModule {
     }
 
     @Provides
-    @CustomScope
     BaseMvpView provideBaseMvpView() {
         return mView;
     }
 
     @Provides
-    @CustomScope
-    MainMvpPresenter provideMainMvpPresenter(Retrofit retrofit)
+    MainMvpPresenter provideMainMvpPresenter(MainPresenter<MainMvpView> presenter)
     {
-        return new MainPresenter<>(retrofit, mView);
+        return presenter;
     }
 
     @Provides
-    @CustomScope
-    CommentMvpPresenter provideCommentMvpPresenter(Retrofit retrofit)
+    CommentMvpPresenter provideCommentMvpPresenter(CommentPresenter<CommentMvpView> presenter)
     {
-        return new CommentPresenter<>(retrofit, mView);
+        return presenter;
     }
 }

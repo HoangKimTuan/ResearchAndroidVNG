@@ -1,21 +1,12 @@
 package com.example.cpu10225.daggermvp.ui.comment;
 
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.cpu10225.daggermvp.R;
-import com.example.cpu10225.daggermvp.data.db.Comment;
-import com.example.cpu10225.daggermvp.data.db.Post;
+import com.example.cpu10225.daggermvp.data.network.model.Comment;
 import com.example.cpu10225.daggermvp.ui.base.BaseActivity;
-import com.example.cpu10225.daggermvp.ui.base.BaseMvpView;
-import com.example.cpu10225.daggermvp.ui.main.MainActivity;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;

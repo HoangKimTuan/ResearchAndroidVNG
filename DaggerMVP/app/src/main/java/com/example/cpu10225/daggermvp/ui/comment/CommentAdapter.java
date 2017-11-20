@@ -8,7 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.example.cpu10225.daggermvp.R;
-import com.example.cpu10225.daggermvp.data.db.Comment;
+import com.example.cpu10225.daggermvp.data.network.model.Comment;
 
 import java.util.List;
 
