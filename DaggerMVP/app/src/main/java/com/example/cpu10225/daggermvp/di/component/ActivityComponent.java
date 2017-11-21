@@ -2,6 +2,7 @@ package com.example.cpu10225.daggermvp.di.component;
 
 import com.example.cpu10225.daggermvp.di.module.ActivityModule;
 import com.example.cpu10225.daggermvp.ui.comment.CommentActivity;
+import com.example.cpu10225.daggermvp.ui.comment.like.CommentLikeActivity;
 import com.example.cpu10225.daggermvp.ui.main.MainActivity;
 import com.example.cpu10225.daggermvp.util.anotation.CustomScope;
 
@@ -16,4 +17,5 @@ import dagger.Component;
 public interface ActivityComponent {
     void inject(MainActivity mainActivity);
     void inject(CommentActivity commentActivity);
+    void inject(CommentLikeActivity commentLikeActivity);
 }

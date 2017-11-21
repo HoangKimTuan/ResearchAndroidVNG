@@ -18,6 +18,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 public class CommentActivity extends BaseActivity implements CommentMvpView {
+
     ListView lvComment;
     ArrayList<Comment> list;
     CommentAdapter adapter;
@@ -69,7 +70,12 @@ public class CommentActivity extends BaseActivity implements CommentMvpView {
         for (int i = 0; i < comments.size(); i++) {
             list.add(comments.get(i));
         }
-        adapter = new CommentAdapter(list, this);
+        adapter = new CommentAdapter(list, this, new CommentAdapter.CommentItemListener() {
+            @Override
+            public void onAddClick(com.example.cpu10225.daggermvp.data.db.model.Comment comment) {
+                mPresenter.insertComment(comment);
+            }
+        });
         lvComment.setAdapter(adapter);
     }
 }

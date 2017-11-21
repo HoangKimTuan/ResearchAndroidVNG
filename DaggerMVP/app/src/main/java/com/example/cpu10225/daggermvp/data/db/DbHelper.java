@@ -11,6 +11,7 @@ import rx.Observable;
  */
 
 public interface DbHelper {
-    Observable<Long> insertComment(final Comment comment);
+    Long insertComment(final Comment comment);
+    void removeComment(final Long id);
     Observable<List<Comment>> getAllComment();
 }

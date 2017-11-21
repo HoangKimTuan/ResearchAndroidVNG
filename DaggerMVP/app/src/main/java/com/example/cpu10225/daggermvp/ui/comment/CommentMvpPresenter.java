@@ -1,5 +1,6 @@
 package com.example.cpu10225.daggermvp.ui.comment;
 
+import com.example.cpu10225.daggermvp.data.db.model.Comment;
 import com.example.cpu10225.daggermvp.ui.base.BaseMvpPresenter;
 
 /**
@@ -8,4 +9,5 @@ import com.example.cpu10225.daggermvp.ui.base.BaseMvpPresenter;
 
 public interface CommentMvpPresenter<V extends CommentMvpView> extends BaseMvpPresenter<V> {
     void loadComment(Integer postId);
+    void insertComment(Comment comment);
 }

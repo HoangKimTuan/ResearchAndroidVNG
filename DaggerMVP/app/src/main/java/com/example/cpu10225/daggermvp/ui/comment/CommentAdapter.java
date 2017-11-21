@@ -20,11 +20,13 @@ public class CommentAdapter extends BaseAdapter {
     private List<Comment> mCommentList;
     private LayoutInflater mLayoutInflater;
     private Context mContext;
+    private CommentItemListener mCommentItemListener;
 
-    public CommentAdapter(List<Comment> commentList, Context context) {
+    public CommentAdapter(List<Comment> commentList, Context context, CommentItemListener mCommentItemListener) {
         this.mCommentList = commentList;
         this.mLayoutInflater = LayoutInflater.from(context);
         this.mContext = context;
+        this.mCommentItemListener = mCommentItemListener;
     }
 
     @Override
@@ -45,18 +47,26 @@ public class CommentAdapter extends BaseAdapter {
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         ViewHolder holder;
+        Comment comment = this.mCommentList.get(i);
+        final com.example.cpu10225.daggermvp.data.db.model.Comment dbComment = new com.example.cpu10225.daggermvp.data.db.model.Comment(null, comment.getName(), comment.getEmail(), comment.getBody());
         if (view == null) {
             view = mLayoutInflater.inflate(R.layout.listview_comment, null);
             holder = new ViewHolder();
             holder.tvName = view.findViewById(R.id.tvName);
             holder.tvEmail = view.findViewById(R.id.tvEmail);
             holder.tvBody = view.findViewById(R.id.tvBody);
+            view.findViewById(R.id.btnAdd).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mCommentItemListener.onAddClick(dbComment);
+                }
+            });
             view.setTag(holder);
         } else {
             holder = (ViewHolder) view.getTag();
         }
 
-        Comment comment = this.mCommentList.get(i);
+
         holder.tvName.setText(comment.getName());
         holder.tvEmail.setText(comment.getEmail());
         holder.tvBody.setText(comment.getBody());
@@ -66,5 +76,9 @@ public class CommentAdapter extends BaseAdapter {
 
     static class ViewHolder {
         TextView tvName, tvEmail, tvBody;
+    }
+
+    public interface CommentItemListener {
+        void onAddClick(com.example.cpu10225.daggermvp.data.db.model.Comment comment);
     }
 }

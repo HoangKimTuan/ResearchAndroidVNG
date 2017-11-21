@@ -44,4 +44,9 @@ public class CommentPresenter<V extends CommentMvpView> extends BasePresenter<V>
             }
         });
     }
+
+    @Override
+    public void insertComment(com.example.cpu10225.daggermvp.data.db.model.Comment comment) {
+        getDataManager().insertComment(comment);
+    }
 }

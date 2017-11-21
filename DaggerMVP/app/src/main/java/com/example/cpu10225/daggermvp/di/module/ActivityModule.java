@@ -4,6 +4,9 @@ import com.example.cpu10225.daggermvp.ui.base.BaseMvpView;
 import com.example.cpu10225.daggermvp.ui.comment.CommentMvpPresenter;
 import com.example.cpu10225.daggermvp.ui.comment.CommentMvpView;
 import com.example.cpu10225.daggermvp.ui.comment.CommentPresenter;
+import com.example.cpu10225.daggermvp.ui.comment.like.CommentLikeMvpPresenter;
+import com.example.cpu10225.daggermvp.ui.comment.like.CommentLikeMvpView;
+import com.example.cpu10225.daggermvp.ui.comment.like.CommentLikePresenter;
 import com.example.cpu10225.daggermvp.ui.main.MainMvpPresenter;
 import com.example.cpu10225.daggermvp.ui.main.MainMvpView;
 import com.example.cpu10225.daggermvp.ui.main.MainPresenter;
@@ -37,6 +40,11 @@ public class ActivityModule {
     @Provides
     CommentMvpPresenter<CommentMvpView> provideCommentMvpPresenter(CommentPresenter<CommentMvpView> presenter)
     {
+        return presenter;
+    }
+
+    @Provides
+    CommentLikeMvpPresenter<CommentLikeMvpView> provideCommentLikeMvpPresenter(CommentLikePresenter<CommentLikeMvpView> presenter) {
         return presenter;
     }
 }

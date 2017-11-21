@@ -28,8 +28,13 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
-    public Observable<Long> insertComment(Comment comment) {
+    public Long insertComment(Comment comment) {
         return mDbHelper.insertComment(comment);
+    }
+
+    @Override
+    public void removeComment(Long id) {
+        mDbHelper.removeComment(id);
     }
 
     @Override

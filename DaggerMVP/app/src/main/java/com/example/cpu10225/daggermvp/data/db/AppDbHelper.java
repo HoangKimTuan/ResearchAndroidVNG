@@ -26,13 +26,13 @@ public class AppDbHelper implements DbHelper {
     }
 
     @Override
-    public Observable<Long> insertComment(final Comment comment) {
-        return Observable.fromCallable(new Callable<Long>() {
-            @Override
-            public Long call() throws Exception {
-                return mDaoSession.getCommentDao().insert(comment);
-            }
-        });
+    public Long insertComment(final Comment comment) {
+        return mDaoSession.getCommentDao().insert(comment);
+    }
+
+    @Override
+    public void removeComment(Long id) {
+        mDaoSession.getCommentDao().deleteByKey(id);
     }
 
     @Override

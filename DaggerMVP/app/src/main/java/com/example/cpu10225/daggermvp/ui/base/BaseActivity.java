@@ -1,5 +1,6 @@
 package com.example.cpu10225.daggermvp.ui.base;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -10,6 +11,7 @@ import com.example.cpu10225.daggermvp.R;
 import com.example.cpu10225.daggermvp.di.component.ActivityComponent;
 import com.example.cpu10225.daggermvp.di.component.DaggerActivityComponent;
 import com.example.cpu10225.daggermvp.di.module.ActivityModule;
+import com.example.cpu10225.daggermvp.ui.comment.like.CommentLikeActivity;
 
 /**
  * Created by cpu10225 on 17/11/2017.
@@ -41,6 +43,7 @@ public class BaseActivity extends AppCompatActivity implements BaseMvpView {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.item_like:
+                startActivity(new Intent(this, CommentLikeActivity.class));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
