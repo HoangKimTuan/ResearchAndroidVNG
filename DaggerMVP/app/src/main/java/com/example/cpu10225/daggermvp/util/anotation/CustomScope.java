@@ -1,8 +1,10 @@
 package com.example.cpu10225.daggermvp.util.anotation;
 
+import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
+import javax.inject.Qualifier;
 import javax.inject.Scope;
 
 /**
@@ -10,6 +12,7 @@ import javax.inject.Scope;
  */
 
 @Scope
+@Documented
 @Retention(RetentionPolicy.RUNTIME)
 public @interface CustomScope {
 }
