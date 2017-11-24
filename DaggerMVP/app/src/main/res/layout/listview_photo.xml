@@ -19,7 +19,7 @@
         android:layout_marginBottom="@dimen/margin_bottom_min" />
 
     <Button
-        android:id="@+id/btnAdd"
+        android:id="@+id/btnAddPhoto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Add"

@@ -2,6 +2,7 @@ package com.example.cpu10225.daggermvp.data;
 
 import com.example.cpu10225.daggermvp.data.db.DbHelper;
 import com.example.cpu10225.daggermvp.data.db.model.Comment;
+import com.example.cpu10225.daggermvp.data.db.model.PhotoDb;
 import com.example.cpu10225.daggermvp.data.network.ApiHelper;
 import com.example.cpu10225.daggermvp.data.network.model.Album;
 import com.example.cpu10225.daggermvp.data.network.model.Photo;
@@ -42,6 +43,21 @@ public class AppDataManager implements DataManager {
     @Override
     public Observable<List<Comment>> getAllComment() {
         return mDbHelper.getAllComment();
+    }
+
+    @Override
+    public Long insertPhoto(PhotoDb photoDb) {
+        return mDbHelper.insertPhoto(photoDb);
+    }
+
+    @Override
+    public void removePhoto(Long id) {
+        mDbHelper.removePhoto(id);
+    }
+
+    @Override
+    public Observable<List<PhotoDb>> getAllPhoto() {
+        return mDbHelper.getAllPhoto();
     }
 
     @Override

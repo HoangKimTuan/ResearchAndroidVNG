@@ -21,9 +21,4 @@ public class DbOpenHelper extends DaoMaster.OpenHelper {
     public DbOpenHelper(@ApplicationContext Context context, @DatabaseInfo String name) {
         super(context, name);
     }
-
-    @Override
-    public void onUpgrade(Database db, int oldVersion, int newVersion) {
-        super.onUpgrade(db, oldVersion, newVersion);
-    }
 }

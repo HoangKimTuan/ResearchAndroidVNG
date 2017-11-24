@@ -51,13 +51,13 @@ public class PhotoAdapter extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
         ViewHolder holder;
         Photo photo = this.mPhotoList.get(i);
-        final PhotoDb photoDb = new PhotoDb();
+        final PhotoDb photoDb = new PhotoDb(null, photo.getTitle(), photo.getUrl());
         if (view == null) {
             view = mLayoutInflater.inflate(R.layout.listview_photo, null);
             holder = new ViewHolder();
             holder.tvTitle = view.findViewById(R.id.tvTitle);
             holder.ivPhoto = view.findViewById(R.id.ivPhoto);
-            view.findViewById(R.id.btnAdd).setOnClickListener(new View.OnClickListener() {
+            view.findViewById(R.id.btnAddPhoto).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     mPhotoItemListener.onAddClick(photoDb);

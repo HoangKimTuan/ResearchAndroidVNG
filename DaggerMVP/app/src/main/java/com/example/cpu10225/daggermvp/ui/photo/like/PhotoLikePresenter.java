@@ -1,8 +1,7 @@
-package com.example.cpu10225.daggermvp.ui.photo;
+package com.example.cpu10225.daggermvp.ui.photo.like;
 
 import com.example.cpu10225.daggermvp.data.DataManager;
 import com.example.cpu10225.daggermvp.data.db.model.PhotoDb;
-import com.example.cpu10225.daggermvp.data.network.model.Photo;
 import com.example.cpu10225.daggermvp.ui.base.BasePresenter;
 
 import java.util.List;
@@ -15,16 +14,17 @@ import rx.Observer;
  * Created by cpu10225 on 24/11/2017.
  */
 
-public class PhotoPresenter<V extends PhotoMvpView> extends BasePresenter<V> implements PhotoMvpPresenter<V> {
+public class PhotoLikePresenter<V extends PhotoLikeMvpView> extends BasePresenter<V> implements PhotoLikeMvpPresenter<V> {
 
     @Inject
-    public PhotoPresenter(DataManager mDataManager) {
+    public PhotoLikePresenter(DataManager mDataManager) {
         super(mDataManager);
     }
 
+
     @Override
-    public void loadPhoto(Integer photoId) {
-        getDataManager().getPhotoList(photoId).subscribe(new Observer<List<Photo>>() {
+    public void getPhotoList() {
+        getDataManager().getAllPhoto().subscribe(new Observer<List<PhotoDb>>() {
             @Override
             public void onCompleted() {
                 getMvpView().showComplete();
@@ -36,14 +36,14 @@ public class PhotoPresenter<V extends PhotoMvpView> extends BasePresenter<V> imp
             }
 
             @Override
-            public void onNext(List<Photo> photos) {
-                getMvpView().showPhoto(photos);
+            public void onNext(List<PhotoDb> photoDbs) {
+                getMvpView().showPhotoLike(photoDbs);
             }
         });
     }
 
     @Override
-    public void insertPhoto(PhotoDb photoDb) {
-        getDataManager().insertPhoto(photoDb);
+    public void removePhoto(Long id) {
+        getDataManager().removePhoto(id);
     }
 }

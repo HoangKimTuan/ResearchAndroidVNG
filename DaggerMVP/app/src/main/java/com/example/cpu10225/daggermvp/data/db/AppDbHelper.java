@@ -3,6 +3,7 @@ package com.example.cpu10225.daggermvp.data.db;
 import com.example.cpu10225.daggermvp.data.db.model.Comment;
 import com.example.cpu10225.daggermvp.data.db.model.DaoMaster;
 import com.example.cpu10225.daggermvp.data.db.model.DaoSession;
+import com.example.cpu10225.daggermvp.data.db.model.PhotoDb;
 
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -41,6 +42,26 @@ public class AppDbHelper implements DbHelper {
             @Override
             public List<Comment> call() throws Exception {
                 return mDaoSession.getCommentDao().loadAll();
+            }
+        });
+    }
+
+    @Override
+    public Long insertPhoto(final PhotoDb photoDb) {
+        return mDaoSession.getPhotoDbDao().insert(photoDb);
+    }
+
+    @Override
+    public void removePhoto(Long id) {
+        mDaoSession.getPhotoDbDao().deleteByKey(id);
+    }
+
+    @Override
+    public Observable<List<PhotoDb>> getAllPhoto() {
+        return Observable.fromCallable(new Callable<List<PhotoDb>>() {
+            @Override
+            public List<PhotoDb> call() throws Exception {
+                return mDaoSession.getPhotoDbDao().loadAll();
             }
         });
     }

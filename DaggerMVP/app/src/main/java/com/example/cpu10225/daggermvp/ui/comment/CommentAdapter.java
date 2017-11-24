@@ -55,7 +55,7 @@ public class CommentAdapter extends BaseAdapter {
             holder.tvName = view.findViewById(R.id.tvName);
             holder.tvEmail = view.findViewById(R.id.tvEmail);
             holder.tvBody = view.findViewById(R.id.tvBody);
-            view.findViewById(R.id.btnAdd).setOnClickListener(new View.OnClickListener() {
+            view.findViewById(R.id.btnAddComment).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     mCommentItemListener.onAddClick(dbComment);
@@ -65,7 +65,6 @@ public class CommentAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) view.getTag();
         }
-
 
         holder.tvName.setText(comment.getName());
         holder.tvEmail.setText(comment.getEmail());

@@ -12,6 +12,8 @@ import com.example.cpu10225.daggermvp.di.component.ActivityComponent;
 import com.example.cpu10225.daggermvp.di.component.DaggerActivityComponent;
 import com.example.cpu10225.daggermvp.di.module.ActivityModule;
 import com.example.cpu10225.daggermvp.ui.comment.like.CommentLikeActivity;
+import com.example.cpu10225.daggermvp.ui.main.MainActivity;
+import com.example.cpu10225.daggermvp.ui.photo.like.PhotoLikeActivity;
 
 /**
  * Created by cpu10225 on 17/11/2017.
@@ -42,8 +44,14 @@ public class BaseActivity extends AppCompatActivity implements BaseMvpView {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.item_like:
+            case R.id.item_like_comment:
                 startActivity(new Intent(this, CommentLikeActivity.class));
+                return true;
+            case R.id.item_like_photo:
+                startActivity(new Intent(this, PhotoLikeActivity.class));
+                return true;
+            case R.id.item_home:
+                startActivity(new Intent(this, MainActivity.class));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
