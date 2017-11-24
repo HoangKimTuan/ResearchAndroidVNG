@@ -1,6 +1,7 @@
 package com.example.cpu10225.daggermvp.ui.main;
 
 import com.example.cpu10225.daggermvp.data.DataManager;
+import com.example.cpu10225.daggermvp.data.network.model.Album;
 import com.example.cpu10225.daggermvp.data.network.model.Post;
 import com.example.cpu10225.daggermvp.ui.base.BasePresenter;
 
@@ -49,6 +50,31 @@ public class MainPresenter<V extends MainMvpView> extends BasePresenter<V> imple
 
     @Override
     public void clickPost(Integer id) {
+        EventBus.getDefault().postSticky(id);
+    }
+
+    @Override
+    public void loadAlbum() {
+        getDataManager().getAlbumList().subscribe(new Observer<List<Album>>() {
+            @Override
+            public void onCompleted() {
+                getMvpView().showComplete();
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                getMvpView().showError(e.getMessage());
+            }
+
+            @Override
+            public void onNext(List<Album> albums) {
+                getMvpView().showAlbum(albums);
+            }
+        });
+    }
+
+    @Override
+    public void clickAlbum(Integer id) {
         EventBus.getDefault().postSticky(id);
     }
 }

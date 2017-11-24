@@ -20,7 +20,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.comment.CommentActivity" />
-        <activity android:name=".ui.comment.like.CommentLikeActivity"></activity>
+        <activity android:name=".ui.comment.like.CommentLikeActivity" />
+        <activity android:name=".ui.photo.PhotoActivity"></activity>
     </application>
 
 </manifest>

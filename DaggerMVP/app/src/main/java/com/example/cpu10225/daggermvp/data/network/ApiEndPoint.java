@@ -9,6 +9,8 @@ import com.example.cpu10225.daggermvp.BuildConfig;
 public final class ApiEndPoint {
     public static final String ENDPOINT_GET_POSTS = "/posts";
     public static final String ENDPOINT_GET_COMMENTS = ENDPOINT_GET_POSTS + "/{id}/comments";
+    public static final String ENDPOINT_GET_ALBUMS = "/albums";
+    public static final String ENDPOINT_GET_PHOTOS = ENDPOINT_GET_ALBUMS + "/{id}/photos";
 
     private ApiEndPoint() {}
 }

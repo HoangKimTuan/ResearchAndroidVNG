@@ -9,4 +9,6 @@ import com.example.cpu10225.daggermvp.ui.base.BaseMvpPresenter;
 public interface MainMvpPresenter<V extends MainMvpView> extends BaseMvpPresenter<V> {
     void loadPost();
     void clickPost(Integer id);
+    void loadAlbum();
+    void clickAlbum(Integer id);
 }

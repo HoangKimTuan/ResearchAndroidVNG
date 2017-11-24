@@ -10,6 +10,9 @@ import com.example.cpu10225.daggermvp.ui.comment.like.CommentLikePresenter;
 import com.example.cpu10225.daggermvp.ui.main.MainMvpPresenter;
 import com.example.cpu10225.daggermvp.ui.main.MainMvpView;
 import com.example.cpu10225.daggermvp.ui.main.MainPresenter;
+import com.example.cpu10225.daggermvp.ui.photo.PhotoMvpPresenter;
+import com.example.cpu10225.daggermvp.ui.photo.PhotoMvpView;
+import com.example.cpu10225.daggermvp.ui.photo.PhotoPresenter;
 
 import dagger.Module;
 import dagger.Provides;
@@ -45,6 +48,11 @@ public class ActivityModule {
 
     @Provides
     CommentLikeMvpPresenter<CommentLikeMvpView> provideCommentLikeMvpPresenter(CommentLikePresenter<CommentLikeMvpView> presenter) {
+        return presenter;
+    }
+
+    @Provides
+    PhotoMvpPresenter<PhotoMvpView> providePhotoMvpPresenter(PhotoPresenter<PhotoMvpView> presenter) {
         return presenter;
     }
 }

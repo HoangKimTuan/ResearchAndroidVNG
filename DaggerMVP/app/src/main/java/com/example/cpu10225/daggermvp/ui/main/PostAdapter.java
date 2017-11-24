@@ -20,12 +20,12 @@ import com.example.cpu10225.daggermvp.R;
  * Created by cpu10225 on 14/11/2017.
  */
 
-public class MainAdapter extends BaseAdapter {
+public class PostAdapter extends BaseAdapter {
     private List<Post> mPostList;
     private LayoutInflater mLayoutInflater;
     private Context mContext;
 
-    public MainAdapter(List<Post> postList, Context context) {
+    public PostAdapter(List<Post> postList, Context context) {
         this.mPostList = postList;
         this.mLayoutInflater = LayoutInflater.from(context);
         this.mContext = context;

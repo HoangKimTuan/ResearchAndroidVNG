@@ -3,6 +3,8 @@ package com.example.cpu10225.daggermvp.data;
 import com.example.cpu10225.daggermvp.data.db.DbHelper;
 import com.example.cpu10225.daggermvp.data.db.model.Comment;
 import com.example.cpu10225.daggermvp.data.network.ApiHelper;
+import com.example.cpu10225.daggermvp.data.network.model.Album;
+import com.example.cpu10225.daggermvp.data.network.model.Photo;
 import com.example.cpu10225.daggermvp.data.network.model.Post;
 
 import java.util.List;
@@ -50,5 +52,15 @@ public class AppDataManager implements DataManager {
     @Override
     public Observable<List<com.example.cpu10225.daggermvp.data.network.model.Comment>> getCommentList(Integer postId) {
         return mApiHelper.getCommentList(postId);
+    }
+
+    @Override
+    public Observable<List<Album>> getAlbumList() {
+        return mApiHelper.getAlbumList();
+    }
+
+    @Override
+    public Observable<List<Photo>> getPhotoList(Integer albumId) {
+        return mApiHelper.getPhotoList(albumId);
     }
 }

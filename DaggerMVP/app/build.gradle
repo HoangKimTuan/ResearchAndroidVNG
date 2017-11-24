@@ -58,4 +58,8 @@ dependencies {
     //GreenDAO
     compile 'org.greenrobot:greendao:3.2.2'
     compile 'org.greenrobot:greendao-generator:3.2.2'
+
+    //Glide
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'com.android.support:support-v4:26.1.0'
 }

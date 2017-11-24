@@ -9,9 +9,11 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.cpu10225.daggermvp.R;
+import com.example.cpu10225.daggermvp.data.network.model.Album;
 import com.example.cpu10225.daggermvp.data.network.model.Post;
 import com.example.cpu10225.daggermvp.ui.base.BaseActivity;
 import com.example.cpu10225.daggermvp.ui.comment.CommentActivity;
+import com.example.cpu10225.daggermvp.ui.photo.PhotoActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,9 +21,11 @@ import java.util.List;
 import javax.inject.Inject;
 
 public class MainActivity extends BaseActivity implements MainMvpView {
-    ListView lvPost;
-    ArrayList<Post> list;
-    ArrayAdapter<Post> adapter;
+    ListView lvPost, lvAlbum;
+    ArrayList<Post> listPost;
+    ArrayList<Album> listAlbum;
+    ArrayAdapter<Post> adapterPost;
+    ArrayAdapter<Album> adapterAlbum;
 
     @Inject
     MainMvpPresenter<MainMvpView> mPresenter;
@@ -34,24 +38,44 @@ public class MainActivity extends BaseActivity implements MainMvpView {
         lvPost.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                mPresenter.clickPost(list.get(i).getId());
+                mPresenter.clickPost(listPost.get(i).getId());
                 startActivity(new Intent(MainActivity.this, CommentActivity.class));
             }
         });
-        list = new ArrayList<>();
+        listPost = new ArrayList<>();
+
+        lvAlbum = findViewById(R.id.lvAlbum);
+        lvAlbum.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                mPresenter.clickAlbum(listAlbum.get(i).getId());
+                startActivity(new Intent(MainActivity.this, PhotoActivity.class));
+            }
+        });
+        listAlbum = new ArrayList<>();
 
         getActivityComponent().inject(this);
         mPresenter.onAttach(this);
         mPresenter.loadPost();
+        mPresenter.loadAlbum();
     }
 
     @Override
     public void showPost(List<Post> posts) {
         for (int i = 0; i < posts.size(); i++) {
-            list.add(posts.get(i));
+            listPost.add(posts.get(i));
         }
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, list);
-        lvPost.setAdapter(adapter);
+        adapterPost = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listPost);
+        lvPost.setAdapter(adapterPost);
+    }
+
+    @Override
+    public void showAlbum(List<Album> albums) {
+        for (int i = 0; i < albums.size(); i++) {
+            listAlbum.add(albums.get(i));
+        }
+        adapterAlbum = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listAlbum);
+        lvAlbum.setAdapter(adapterAlbum);
     }
 
     @Override

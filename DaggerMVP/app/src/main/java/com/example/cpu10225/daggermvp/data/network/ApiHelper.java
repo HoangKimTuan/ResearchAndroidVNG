@@ -1,6 +1,8 @@
 package com.example.cpu10225.daggermvp.data.network;
 
+import com.example.cpu10225.daggermvp.data.network.model.Album;
 import com.example.cpu10225.daggermvp.data.network.model.Comment;
+import com.example.cpu10225.daggermvp.data.network.model.Photo;
 import com.example.cpu10225.daggermvp.data.network.model.Post;
 
 import java.util.List;
@@ -19,4 +21,10 @@ public interface ApiHelper {
 
     @GET(ApiEndPoint.ENDPOINT_GET_COMMENTS)
     Observable<List<Comment>> getCommentList(@Path("id") Integer postId);
+
+    @GET(ApiEndPoint.ENDPOINT_GET_ALBUMS)
+    Observable<List<Album>> getAlbumList();
+
+    @GET(ApiEndPoint.ENDPOINT_GET_PHOTOS)
+    Observable<List<Photo>> getPhotoList(@Path("id") Integer albumId);
 }

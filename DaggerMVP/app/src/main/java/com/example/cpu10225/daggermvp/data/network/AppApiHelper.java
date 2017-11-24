@@ -1,6 +1,8 @@
 package com.example.cpu10225.daggermvp.data.network;
 
+import com.example.cpu10225.daggermvp.data.network.model.Album;
 import com.example.cpu10225.daggermvp.data.network.model.Comment;
+import com.example.cpu10225.daggermvp.data.network.model.Photo;
 import com.example.cpu10225.daggermvp.data.network.model.Post;
 
 import java.util.List;
@@ -28,14 +30,32 @@ public class AppApiHelper implements ApiHelper {
 
     @Override
     public Observable<List<Post>> getPostList() {
-        return mRetrofit.create(ApiHelper.class).getPostList().subscribeOn(Schedulers.io())
+        return mRetrofit.create(ApiHelper.class).getPostList()
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io());
     }
 
     @Override
     public Observable<List<Comment>> getCommentList(Integer postId) {
-        return mRetrofit.create(ApiHelper.class).getCommentList(postId).subscribeOn(Schedulers.io())
+        return mRetrofit.create(ApiHelper.class).getCommentList(postId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io());
+    }
+
+    @Override
+    public Observable<List<Album>> getAlbumList() {
+        return mRetrofit.create(ApiHelper.class).getAlbumList()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io());
+    }
+
+    @Override
+    public Observable<List<Photo>> getPhotoList(Integer albumId) {
+        return mRetrofit.create(ApiHelper.class).getPhotoList(albumId)
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io());
     }
