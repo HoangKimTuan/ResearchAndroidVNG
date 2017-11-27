@@ -15,6 +15,8 @@ import com.example.cpu10225.daggermvp.ui.base.BaseActivity;
 import com.example.cpu10225.daggermvp.ui.comment.CommentActivity;
 import com.example.cpu10225.daggermvp.ui.photo.PhotoActivity;
 
+import org.greenrobot.eventbus.Subscribe;
+
 import java.util.ArrayList;
 import java.util.List;
 
