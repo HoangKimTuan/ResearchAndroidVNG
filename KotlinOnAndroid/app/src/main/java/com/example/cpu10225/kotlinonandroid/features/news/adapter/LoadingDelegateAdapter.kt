@@ -1,8 +1,10 @@
-package com.example.cpu10225.kotlinonandroid.commons.adapter
+package com.example.cpu10225.kotlinonandroid.features.news.adapter
 
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
 import com.example.cpu10225.kotlinonandroid.R
+import com.example.cpu10225.kotlinonandroid.commons.adapter.ViewType
+import com.example.cpu10225.kotlinonandroid.commons.adapter.ViewTypeDelegateAdapter
 import com.example.cpu10225.kotlinonandroid.commons.extensions.inflate
 
 /**
