@@ -1,15 +1,19 @@
 package com.example.cpu10225.kotlinonandroid.features.news
 
-import com.example.cpu10225.kotlinonandroid.api.RestAPI
+import com.example.cpu10225.kotlinonandroid.api.NewsAPI
+import com.example.cpu10225.kotlinonandroid.api.NewsRestAPI
 import com.example.cpu10225.kotlinonandroid.commons.RedditNews
 import com.example.cpu10225.kotlinonandroid.commons.RedditNewsItem
 import rx.Observable
+import javax.inject.Inject
+import javax.inject.Singleton
 
 /**
  * Created by cpu10225 on 04/12/2017.
  */
 
-class NewsManager(private val api: RestAPI = RestAPI()) {
+@Singleton
+class NewsManager @Inject constructor(private val api: NewsAPI) {
     fun getNews(after: String, limit: String = "10"): Observable<RedditNews> {
         return Observable.create {
             subscriber ->
