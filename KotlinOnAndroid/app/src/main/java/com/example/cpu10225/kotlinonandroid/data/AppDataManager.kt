@@ -2,7 +2,7 @@ package com.example.cpu10225.kotlinonandroid.data
 
 import com.example.cpu10225.kotlinonandroid.data.db.DbHelper
 import com.example.cpu10225.kotlinonandroid.data.network.ApiHelper
-import com.example.cpu10225.kotlinonandroid.data.network.RedditNewsItem
+import com.example.cpu10225.kotlinonandroid.data.network.News
 import com.example.cpu10225.kotlinonandroid.data.prefs.PreferencesHelper
 import rx.Observable
 import javax.inject.Inject
@@ -20,7 +20,7 @@ class AppDataManager
         private val mPreferencesHelper: PreferencesHelper)
     : DataManager {
 
-    override fun getTop(after: String, limit: String): Observable<RedditNewsItem> {
+    override fun getTop(after: String, limit: String): Observable<News> {
         return mApiHelper.getTop(after, limit)
     }
 }

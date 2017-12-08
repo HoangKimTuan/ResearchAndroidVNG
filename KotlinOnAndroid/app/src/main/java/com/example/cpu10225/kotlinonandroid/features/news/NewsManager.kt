@@ -4,9 +4,9 @@ import com.example.cpu10225.kotlinonandroid.api.NewsAPI
 import com.example.cpu10225.kotlinonandroid.api.RedditNewsResponse
 import com.example.cpu10225.kotlinonandroid.commons.RedditNews
 import com.example.cpu10225.kotlinonandroid.commons.RedditNewsItem
+import com.example.cpu10225.kotlinonandroid.data.DataManager
 import ru.gildor.coroutines.retrofit.Result
 import ru.gildor.coroutines.retrofit.awaitResult
-import rx.Observable
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -16,6 +16,7 @@ import javax.inject.Singleton
 
 @Singleton
 class NewsManager @Inject constructor(private val api: NewsAPI) {
+
     suspend fun getNews(after: String, limit: String = "10"): RedditNews {
         val result = api.getNews(after, limit).awaitResult()
         return when (result) {

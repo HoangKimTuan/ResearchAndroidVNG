@@ -1,9 +1,9 @@
 package com.example.cpu10225.kotlinonandroid
 
 import android.app.Application
-import com.example.cpu10225.kotlinonandroid.di.AppModule
-import com.example.cpu10225.kotlinonandroid.di.news.DaggerNewsComponent
-import com.example.cpu10225.kotlinonandroid.di.news.NewsComponent
+import com.example.cpu10225.kotlinonandroid.di.component.DaggerMainComponent
+import com.example.cpu10225.kotlinonandroid.di.component.MainComponent
+import com.example.cpu10225.kotlinonandroid.di.module.AppModule
 
 /**
  * Created by cpu10225 on 08/12/2017.
@@ -11,12 +11,12 @@ import com.example.cpu10225.kotlinonandroid.di.news.NewsComponent
 
 class KotlinApp: Application() {
     companion object {
-        lateinit var newsComponent: NewsComponent
+        lateinit var mainComponent: MainComponent
     }
 
     override fun onCreate() {
         super.onCreate()
-        newsComponent = DaggerNewsComponent.builder()
+        mainComponent = DaggerMainComponent.builder()
                 .appModule(AppModule(this))
                 .build()
     }

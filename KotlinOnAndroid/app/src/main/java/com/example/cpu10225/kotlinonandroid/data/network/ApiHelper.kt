@@ -10,5 +10,5 @@ import rx.Observable
 
 interface ApiHelper {
     @GET(ApiEndPoint.GET_TOP)
-    fun getTop(@Query("after") after: String, @Query("limit") limit: String): Observable<RedditNewsItem>
+    fun getTop(@Query("after") after: String, @Query("limit") limit: String): Observable<News>
 }

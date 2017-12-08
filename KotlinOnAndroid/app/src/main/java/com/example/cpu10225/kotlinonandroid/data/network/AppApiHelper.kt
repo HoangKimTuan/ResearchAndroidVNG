@@ -16,9 +16,8 @@ import javax.inject.Inject
 class AppApiHelper
 @Inject constructor(private val mRetrofit: Retrofit)
     : ApiHelper {
-
-    override fun getTop(after: String, limit: String): Observable<RedditNewsItem> {
-        return mRetrofit.create(ApiHelper::class.java).getTop(after, limit)
+    override fun getTop(after: String, limit: String): Observable<News> {
+        return mRetrofit.create<ApiHelper>(ApiHelper::class.java).getTop(after, limit)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())

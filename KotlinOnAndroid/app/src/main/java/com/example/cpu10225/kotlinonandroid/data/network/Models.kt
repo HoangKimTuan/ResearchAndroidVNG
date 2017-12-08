@@ -2,6 +2,8 @@ package com.example.cpu10225.kotlinonandroid.data.network
 
 import android.os.Parcel
 import android.os.Parcelable
+import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
 
 /**
  * Created by cpu10225 on 05/12/2017.
@@ -10,7 +12,7 @@ import android.os.Parcelable
 data class RedditNewsItem (
         val author: String,
         val title: String,
-        val numComments: Int,
+        val num_comments: Int,
         val created: Long,
         val thumbnail: String,
         val url: String
@@ -30,7 +32,7 @@ data class RedditNewsItem (
     override fun writeToParcel(dest: Parcel, flags: Int) = with(dest) {
         writeString(author)
         writeString(title)
-        writeInt(numComments)
+        writeInt(num_comments)
         writeLong(created)
         writeString(thumbnail)
         writeString(url)
@@ -48,12 +50,12 @@ data class RedditNewsItem (
 data class RedditNews(
         val after: String,
         val before: String,
-        val news: List<RedditNewsItem>) : Parcelable {
+        val children: List<Children>) : Parcelable {
 
     constructor(source: Parcel) : this(
             source.readString(),
             source.readString(),
-            source.createTypedArrayList(RedditNewsItem.CREATOR)
+            ArrayList<Children>().apply { source.readList(this, Children::class.java.classLoader) }
     )
 
     override fun describeContents() = 0
@@ -61,7 +63,7 @@ data class RedditNews(
     override fun writeToParcel(dest: Parcel, flags: Int) = with(dest) {
         writeString(after)
         writeString(before)
-        writeTypedList(news)
+        writeList(children)
     }
 
     companion object {
@@ -72,3 +74,20 @@ data class RedditNews(
         }
     }
 }
+
+data class News(
+    @SerializedName("kind")
+    @Expose
+    private val kind: String? = null,
+    @SerializedName("data")
+    @Expose
+    private val data: RedditNews? = null
+)
+
+data class Children(
+    @SerializedName("kind")
+    @Expose
+    private val kind: String? = null,
+    @SerializedName("data")
+    @Expose
+    private val data: RedditNewsItem? = null)
