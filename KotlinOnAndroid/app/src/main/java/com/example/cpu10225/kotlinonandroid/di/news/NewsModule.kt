@@ -16,13 +16,9 @@ import javax.inject.Singleton
 class NewsModule {
     @Provides
     @Singleton
-    fun provideNewsAPI(redditApi: RedditApi): NewsAPI {
-            return NewsRestAPI(redditApi)
-        }
+    fun provideNewsAPI(redditApi: RedditApi): NewsAPI = NewsRestAPI(redditApi)
 
     @Provides
     @Singleton
-    fun provideRedditApi(retrofit: Retrofit): RedditApi {
-            return retrofit.create(RedditApi::class.java)
-        }
+    fun provideRedditApi(retrofit: Retrofit): RedditApi = retrofit.create(RedditApi::class.java)
 }

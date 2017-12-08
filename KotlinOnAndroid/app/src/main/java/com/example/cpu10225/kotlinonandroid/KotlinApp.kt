@@ -6,10 +6,10 @@ import com.example.cpu10225.kotlinonandroid.di.news.DaggerNewsComponent
 import com.example.cpu10225.kotlinonandroid.di.news.NewsComponent
 
 /**
- * Created by cpu10225 on 05/12/2017.
+ * Created by cpu10225 on 08/12/2017.
  */
 
-class KedditApp : Application() {
+class KotlinApp: Application() {
     companion object {
         lateinit var newsComponent: NewsComponent
     }

@@ -1,7 +1,8 @@
 package com.example.cpu10225.kotlinonandroid.di
 
+import android.app.Application
 import android.content.Context
-import com.example.cpu10225.kotlinonandroid.KedditApp
+import com.example.cpu10225.kotlinonandroid.KotlinApp
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -11,12 +12,12 @@ import javax.inject.Singleton
  */
 
 @Module
-class AppModule(val app: KedditApp) {
+class AppModule(val app: KotlinApp) {
     @Provides
     @Singleton
     fun provideContext(): Context = app
 
     @Provides
     @Singleton
-    fun provideAplication(): KedditApp = app
+    fun provideAplication(): Application = app
 }

@@ -14,7 +14,8 @@ import javax.inject.Singleton
 @Component(modules = arrayOf(
         AppModule::class,
         NewsModule::class,
-        NetworkModule::class))
+        NetworkModule::class)
+)
 interface NewsComponent {
     fun inject(newsFragment: NewsFragment)
 }

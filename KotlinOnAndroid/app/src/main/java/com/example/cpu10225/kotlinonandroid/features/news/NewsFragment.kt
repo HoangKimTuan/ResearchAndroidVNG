@@ -1,35 +1,49 @@
 package com.example.cpu10225.kotlinonandroid.features.news
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.cpu10225.kotlinonandroid.KedditApp
+import com.example.cpu10225.kotlinonandroid.KotlinApp
 import com.example.cpu10225.kotlinonandroid.R
 import com.example.cpu10225.kotlinonandroid.commons.InfiniteScrollListener
 import com.example.cpu10225.kotlinonandroid.commons.RedditNews
 import com.example.cpu10225.kotlinonandroid.commons.RxBaseFragment
+import com.example.cpu10225.kotlinonandroid.commons.extensions.androidLazy
 import com.example.cpu10225.kotlinonandroid.features.news.adapter.NewsAdapter
 import com.example.cpu10225.kotlinonandroid.commons.extensions.inflate
+import com.example.cpu10225.kotlinonandroid.features.news.adapter.NewsDelegateAdapter
 import kotlinx.android.synthetic.main.fragment_news.*
-import rx.android.schedulers.AndroidSchedulers
-import rx.schedulers.Schedulers
+import kotlinx.coroutines.experimental.android.UI
+import kotlinx.coroutines.experimental.launch
 import javax.inject.Inject
 
-class NewsFragment : RxBaseFragment() {
+class NewsFragment : RxBaseFragment(), NewsDelegateAdapter.onViewSelectedListener {
+    override fun onItemSelected(url: String?) {
+        if (url.isNullOrEmpty()) {
+            Snackbar.make(news_list, "No URL assigned to this news", Snackbar.LENGTH_LONG).show()
+        } else {
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.data = Uri.parse(url)
+            startActivity(intent)
+        }
+    }
 
     companion object {
         private val KEY_REDDIT_NEWS = "redditNews"
     }
 
-    private var redditNews: RedditNews? = null
     @Inject lateinit var newsManager: NewsManager
+    private var redditNews: RedditNews? = null
+    private val newsAdapter by androidLazy { NewsAdapter(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        KedditApp.newsComponent.inject(this)
+        KotlinApp.newsComponent.inject(this)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -47,11 +61,11 @@ class NewsFragment : RxBaseFragment() {
             addOnScrollListener(InfiniteScrollListener({ requestNews() }, linearLayout))
         }
 
-        initAdapter()
+        news_list.adapter = newsAdapter
 
         if (savedInstanceState != null && savedInstanceState.containsKey(KEY_REDDIT_NEWS)) {
             redditNews = savedInstanceState.get(KEY_REDDIT_NEWS) as RedditNews
-            (news_list.adapter as NewsAdapter).clearAndAddNews(redditNews!!.news)
+            newsAdapter.clearAndAddNews(redditNews!!.news)
         }
         else {
             requestNews()
@@ -60,32 +74,30 @@ class NewsFragment : RxBaseFragment() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        val news = (news_list.adapter as NewsAdapter).getNews()
-        if (redditNews != null && news.size > 0) {
+        val news = newsAdapter.getNews()
+        if (redditNews != null && news.isNotEmpty()) {
             outState.putParcelable(KEY_REDDIT_NEWS, redditNews?.copy(news = news))
         }
     }
 
     private fun requestNews() {
-        val subscription = newsManager.getNews(redditNews?.after ?: "")
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        {
-                            retrievedNews ->
-                            redditNews = retrievedNews
-                            (news_list.adapter as NewsAdapter).addNews(retrievedNews.news)
-                        },
-                        {
-                            e -> Snackbar.make(news_list, e.message ?: "", Snackbar.LENGTH_LONG).show()
-                        }
-                )
-        subcriptions.add(subscription)
-    }
-
-    private fun initAdapter() {
-        if (news_list.adapter == null) {
-            news_list.adapter = NewsAdapter()
+        /**
+         * first time will send empty string for 'after' parameter.
+         * Next time we will have redditNews set with the next page to
+         * navigate with the 'after' param.
+         */
+        job = launch(UI) {
+            try {
+                val retrievedNews = newsManager.getNews(redditNews?.after.orEmpty())
+                redditNews = retrievedNews
+                newsAdapter.addNews(retrievedNews.news)
+            } catch (e: Throwable) {
+                if (isVisible) {
+                    Snackbar.make(news_list, e.message.orEmpty(), Snackbar.LENGTH_INDEFINITE)
+                            .setAction("RETRY") { requestNews() }
+                            .show()
+                }
+            }
         }
     }
 }

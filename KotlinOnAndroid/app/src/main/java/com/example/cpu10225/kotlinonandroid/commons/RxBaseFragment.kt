@@ -1,6 +1,7 @@
 package com.example.cpu10225.kotlinonandroid.commons
 
 import android.support.v4.app.Fragment
+import kotlinx.coroutines.experimental.Job
 import rx.subscriptions.CompositeSubscription
 
 /**
@@ -8,18 +9,16 @@ import rx.subscriptions.CompositeSubscription
  */
 
 open class RxBaseFragment() : Fragment() {
-    protected var subcriptions = CompositeSubscription()
+    protected var job: Job? = null
 
     override fun onResume() {
         super.onResume()
-        subcriptions = CompositeSubscription()
+        job = null
     }
 
     override fun onPause() {
         super.onPause()
-        if (!subcriptions.isUnsubscribed) {
-            subcriptions.unsubscribe()
-        }
-        subcriptions.clear()
+        job?.cancel()
+        job = null
     }
 }
