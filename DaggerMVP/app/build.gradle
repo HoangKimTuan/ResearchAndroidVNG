@@ -42,6 +42,7 @@ dependencies {
 
     //Retrofit
     compile 'com.squareup.retrofit2:retrofit:2.0.2'
+    compile 'com.squareup.retrofit2:retrofit-mock:2.0.2'
 
     //OkHttp
     compile 'com.squareup.okhttp3:okhttp:3.2.0'
@@ -66,4 +67,8 @@ dependencies {
     //Glide
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.android.support:support-v4:26.1.0'
+
+    // Test
+    testCompile 'junit:junit:4.12'
+    testCompile 'org.mockito:mockito-core:2.6.8'
 }
