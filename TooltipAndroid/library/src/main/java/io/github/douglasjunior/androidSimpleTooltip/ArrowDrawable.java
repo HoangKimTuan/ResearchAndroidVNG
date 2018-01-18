@@ -98,6 +98,11 @@ public class ArrowDrawable extends ColorDrawable {
         if (mPath == null)
             updatePath(getBounds());
         canvas.drawPath(mPath, mPaint);
+
+        Paint paint = new Paint();
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setColor(0x88ff9900);
+        canvas.drawPath(mPath, paint);
     }
 
     @Override

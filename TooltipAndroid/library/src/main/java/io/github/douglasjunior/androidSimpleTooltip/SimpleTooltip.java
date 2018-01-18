@@ -260,12 +260,10 @@ public class SimpleTooltip implements PopupWindow.OnDismissListener {
         if (mContentView instanceof TextView) {
             TextView tv = (TextView) mContentView;
             tv.setText(mText);
-            tv.setBackgroundResource(R.drawable.rounded_corner);
         } else {
             TextView tv = (TextView) mContentView.findViewById(mTextViewId);
             if (tv != null)
                 tv.setText(mText);
-            tv.setBackgroundResource(R.drawable.rounded_corner);
         }
 
         mContentView.setPadding((int) mPadding, (int) mPadding, (int) mPadding, (int) mPadding);
@@ -581,7 +579,8 @@ public class SimpleTooltip implements PopupWindow.OnDismissListener {
             if (contentView == null) {
                 TextView tv = new TextView(context);
                 SimpleTooltipUtils.setTextAppearance(tv, mDefaultTextAppearanceRes);
-                tv.setBackgroundColor(backgroundColor);
+//                tv.setBackgroundColor(backgroundColor);
+                tv.setBackgroundResource(R.drawable.rounded_corner);
                 tv.setTextColor(textColor);
                 contentView = tv;
             }
