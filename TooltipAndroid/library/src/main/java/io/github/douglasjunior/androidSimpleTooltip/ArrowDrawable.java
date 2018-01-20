@@ -115,8 +115,8 @@ public class ArrowDrawable extends ColorDrawable {
         mPaint.setStrokeWidth(2);
         canvas.drawPath(mPath, mPaint);
 
-        canvas.drawLine(width/2 + 3, canvas.getHeight() - 1, x, canvas.getHeight() - 1, mPaint);
-        canvas.drawLine(x + width, canvas.getHeight() - 1, canvas.getWidth() - width/2 + 3, canvas.getHeight() - 1, mPaint);
+        canvas.drawLine(0, canvas.getHeight() - 1, x, canvas.getHeight() - 1, mPaint);
+        canvas.drawLine(x + width, canvas.getHeight() - 1, canvas.getWidth(), canvas.getHeight() - 1, mPaint);
     }
 
     @Override
