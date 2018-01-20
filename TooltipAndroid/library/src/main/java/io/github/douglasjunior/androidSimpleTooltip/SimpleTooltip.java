@@ -310,7 +310,7 @@ public class SimpleTooltip implements PopupWindow.OnDismissListener {
 
         LinearLayout.LayoutParams contentViewParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, 0);
         contentViewParams.gravity = Gravity.CENTER;
-        contentViewParams.setMargins(30, 0, 10, 0);
+        contentViewParams.setMargins((int) SimpleTooltipUtils.dpFromPx(mMarginLeft), 0, (int) SimpleTooltipUtils.dpFromPx(mMarginRight), 0);
         mContentView.setLayoutParams(contentViewParams);
 
         mContentLayout = linearLayout;
@@ -431,7 +431,7 @@ public class SimpleTooltip implements PopupWindow.OnDismissListener {
                             x = newX;
                         }
                     }
-                    x = x + 10;
+                    x = x + SimpleTooltipUtils.dpFromPx(mMarginRight);
                     y = mArrowView.getTop();
                     y = y + (mArrowDirection == ArrowDrawable.BOTTOM ? -1 : +1);
                 } else {
