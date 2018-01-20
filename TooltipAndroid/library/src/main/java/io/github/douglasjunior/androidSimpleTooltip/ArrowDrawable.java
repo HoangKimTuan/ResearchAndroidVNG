@@ -61,6 +61,7 @@ public class ArrowDrawable extends ColorDrawable {
 
     private synchronized void updatePath(Rect bounds) {
         mPath = new Path();
+        int x = bounds.width() * 3 / 4 - 30;
 
         switch (mDirection) {
             case LEFT:
@@ -70,10 +71,15 @@ public class ArrowDrawable extends ColorDrawable {
                 mPath.lineTo(bounds.width(), bounds.height());
                 break;
             case TOP:
-                mPath.moveTo(0, bounds.height());
-                mPath.lineTo(bounds.width() / 2, 0);
-                mPath.lineTo(bounds.width(), bounds.height());
-                mPath.lineTo(0, bounds.height());
+//                mPath.moveTo(0, bounds.height());
+//                mPath.lineTo(bounds.width() / 2, 0);
+//                mPath.lineTo(bounds.width(), bounds.height());
+//                mPath.lineTo(0, bounds.height());
+//                break;
+                mPath.moveTo(x, bounds.height());
+                mPath.lineTo(x + 30, 0);
+                mPath.lineTo(x + 60, bounds.height());
+                mPath.lineTo(x, bounds.height());
                 break;
             case RIGHT:
                 mPath.moveTo(0, 0);
@@ -94,15 +100,19 @@ public class ArrowDrawable extends ColorDrawable {
 
     @Override
     public void draw(Canvas canvas) {
+        int x = canvas.getWidth() * 3 / 4 - 30;
         canvas.drawColor(mBackgroundColor);
         if (mPath == null)
             updatePath(getBounds());
         canvas.drawPath(mPath, mPaint);
 
-        Paint paint = new Paint();
-        paint.setStyle(Paint.Style.STROKE);
-        paint.setColor(0x88ff9900);
-        canvas.drawPath(mPath, paint);
+        mPaint.setStyle(Paint.Style.STROKE);
+        mPaint.setColor(0x88ff9900);
+        mPaint.setStrokeWidth(2);
+        canvas.drawPath(mPath, mPaint);
+
+        canvas.drawLine(33, canvas.getHeight() - 1, x, canvas.getHeight() - 1, mPaint);
+        canvas.drawLine(x + 60, canvas.getHeight() - 1, canvas.getWidth() - 27, canvas.getHeight() - 1, mPaint);
     }
 
     @Override

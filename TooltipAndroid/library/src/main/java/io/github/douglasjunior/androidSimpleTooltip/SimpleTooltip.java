@@ -30,6 +30,7 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.PointF;
 import android.graphics.RectF;
@@ -66,6 +67,7 @@ import android.widget.TextView;
  */
 @SuppressWarnings("SameParameterValue")
 public class SimpleTooltip implements PopupWindow.OnDismissListener {
+    public static int width = 0;
 
     private static final String TAG = SimpleTooltip.class.getSimpleName();
 
@@ -76,6 +78,8 @@ public class SimpleTooltip implements PopupWindow.OnDismissListener {
     private static final int mDefaultTextColorRes = R.color.simpletooltip_text;
     private static final int mDefaultArrowColorRes = R.color.simpletooltip_arrow;
     private static final int mDefaultMarginRes = R.dimen.simpletooltip_margin;
+    private static final int mDefaultMarginResLeft = R.dimen.simpletooltip_margin_left;
+    private static final int mDefaultMarginResRight = R.dimen.simpletooltip_margin_right;
     private static final int mDefaultPaddingRes = R.dimen.simpletooltip_padding;
     private static final int mDefaultAnimationPaddingRes = R.dimen.simpletooltip_animation_padding;
     private static final int mDefaultAnimationDurationRes = R.integer.simpletooltip_animation_duration;
@@ -110,6 +114,8 @@ public class SimpleTooltip implements PopupWindow.OnDismissListener {
     private final boolean mAnimated;
     private AnimatorSet mAnimator;
     private final float mMargin;
+    private final float mMarginLeft;
+    private final float mMarginRight;
     private final float mPadding;
     private final float mAnimationPadding;
     private final long mAnimationDuration;
@@ -149,6 +155,9 @@ public class SimpleTooltip implements PopupWindow.OnDismissListener {
         mFocusable = builder.focusable;
         mRootView = SimpleTooltipUtils.findFrameLayout(mAnchorView);
         mHighlightShape = builder.highlightShape;
+        mMarginLeft = mContext.getResources().getDimension(mDefaultMarginResLeft);
+        mMarginRight = mContext.getResources().getDimension(mDefaultMarginResRight);
+        width = Resources.getSystem().getDisplayMetrics().widthPixels - (int) mMarginLeft - (int) mMarginRight;
 
         init();
     }
@@ -280,7 +289,7 @@ public class SimpleTooltip implements PopupWindow.OnDismissListener {
             LinearLayout.LayoutParams arrowLayoutParams;
 
             if (mArrowDirection == ArrowDrawable.TOP || mArrowDirection == ArrowDrawable.BOTTOM) {
-                arrowLayoutParams = new LinearLayout.LayoutParams((int) mArrowWidth, (int) mArrowHeight, 0);
+                arrowLayoutParams = new LinearLayout.LayoutParams(width, (int) mArrowHeight, 0);
             } else {
                 arrowLayoutParams = new LinearLayout.LayoutParams((int) mArrowHeight, (int) mArrowWidth, 0);
             }
@@ -422,7 +431,7 @@ public class SimpleTooltip implements PopupWindow.OnDismissListener {
                             x = newX;
                         }
                     }
-                    x = x + centerX / 2;
+                    x = x + 10;
                     y = mArrowView.getTop();
                     y = y + (mArrowDirection == ArrowDrawable.BOTTOM ? -1 : +1);
                 } else {
