@@ -46,6 +46,7 @@ public class ArrowDrawable extends ColorDrawable {
     private final int mBackgroundColor;
     private Path mPath;
     private final int mDirection;
+    private int width;
 
     ArrowDrawable(@ColorInt int foregroundColor, int direction) {
         this.mBackgroundColor = Color.TRANSPARENT;
@@ -60,8 +61,9 @@ public class ArrowDrawable extends ColorDrawable {
     }
 
     private synchronized void updatePath(Rect bounds) {
+        width = (int) SimpleTooltip.mArrowWidth;
         mPath = new Path();
-        int x = bounds.width() * 3 / 4 - 30;
+        int x = bounds.width() * 3 / 4 - width/2;
 
         switch (mDirection) {
             case LEFT:
@@ -77,9 +79,9 @@ public class ArrowDrawable extends ColorDrawable {
 //                mPath.lineTo(0, bounds.height());
 //                break;
                 mPath.moveTo(x, bounds.height());
-                mPath.lineTo(x + 30, 0);
-                mPath.lineTo(x + 60, bounds.height());
-                mPath.lineTo(x, bounds.height());
+                mPath.lineTo(x + width/2, 0);
+                mPath.lineTo(x + width, bounds.height() + 1);
+                mPath.lineTo(x, bounds.height() + 1);
                 break;
             case RIGHT:
                 mPath.moveTo(0, 0);
@@ -100,7 +102,9 @@ public class ArrowDrawable extends ColorDrawable {
 
     @Override
     public void draw(Canvas canvas) {
-        int x = canvas.getWidth() * 3 / 4 - 30;
+        width = (int) SimpleTooltip.mArrowWidth;
+        int x = canvas.getWidth() * 3 / 4 - width/2;
+
         canvas.drawColor(mBackgroundColor);
         if (mPath == null)
             updatePath(getBounds());
@@ -111,8 +115,8 @@ public class ArrowDrawable extends ColorDrawable {
         mPaint.setStrokeWidth(2);
         canvas.drawPath(mPath, mPaint);
 
-        canvas.drawLine(33, canvas.getHeight() - 1, x, canvas.getHeight() - 1, mPaint);
-        canvas.drawLine(x + 60, canvas.getHeight() - 1, canvas.getWidth() - 27, canvas.getHeight() - 1, mPaint);
+        canvas.drawLine(width/2 + 3, canvas.getHeight() - 1, x, canvas.getHeight() - 1, mPaint);
+        canvas.drawLine(x + width, canvas.getHeight() - 1, canvas.getWidth() - width/2 + 3, canvas.getHeight() - 1, mPaint);
     }
 
     @Override

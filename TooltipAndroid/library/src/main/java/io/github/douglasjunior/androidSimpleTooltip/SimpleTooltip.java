@@ -119,8 +119,8 @@ public class SimpleTooltip implements PopupWindow.OnDismissListener {
     private final float mPadding;
     private final float mAnimationPadding;
     private final long mAnimationDuration;
-    private final float mArrowWidth;
-    private final float mArrowHeight;
+    public static float mArrowWidth;
+    public static float mArrowHeight;
     private final boolean mFocusable;
     private boolean dismissed = false;
     private int mHighlightShape = OverlayView.HIGHLIGHT_SHAPE_OVAL;
@@ -310,7 +310,7 @@ public class SimpleTooltip implements PopupWindow.OnDismissListener {
 
         LinearLayout.LayoutParams contentViewParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, 0);
         contentViewParams.gravity = Gravity.CENTER;
-        contentViewParams.setMargins((int) SimpleTooltipUtils.dpFromPx(mMarginLeft), 0, (int) SimpleTooltipUtils.dpFromPx(mMarginRight), 0);
+//        contentViewParams.setMargins((int) SimpleTooltipUtils.dpFromPx(mMarginLeft), 0, (int) SimpleTooltipUtils.dpFromPx(mMarginRight), 0);
         mContentView.setLayoutParams(contentViewParams);
 
         mContentLayout = linearLayout;
