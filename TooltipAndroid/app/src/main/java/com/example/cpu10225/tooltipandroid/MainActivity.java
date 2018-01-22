@@ -31,6 +31,15 @@ public class MainActivity extends AppCompatActivity {
                     .dismissOnInsideTouch(false)
                     .build()
                     .show();
+
+        new SimpleTooltip.Builder(this)
+                .anchorView(findViewById(R.id.btn_demo))
+                .text(R.string.demo)
+                .gravity(Gravity.TOP)
+                .dismissOnOutsideTouch(true)
+                .dismissOnInsideTouch(false)
+                .build()
+                .show();
             prefs.edit().putBoolean("firstrun", false).commit();
 //        }
     }

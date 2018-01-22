@@ -75,8 +75,11 @@ public class SimpleTooltip implements PopupWindow.OnDismissListener {
     private static final int mDefaultPopupWindowStyleRes = android.R.attr.popupWindowStyle;
     private static final int mDefaultTextAppearanceRes = R.style.simpletooltip_default;
     private static final int mDefaultBackgroundColorRes = R.color.simpletooltip_background;
+//    private static final int mDefaultBackgroundBorderBottomRes = R.drawable.border_tooltip_bottom;
+//    private static final int mDefaultBackgroundBorderTopRes = R.drawable.border_tooltip_top;
     private static final int mDefaultTextColorRes = R.color.simpletooltip_text;
     private static final int mDefaultArrowColorRes = R.color.simpletooltip_arrow;
+    public static int mDefaultBorderColorRes;
     private static final int mDefaultMarginRes = R.dimen.simpletooltip_margin;
     private static final int mDefaultMarginResLeft = R.dimen.simpletooltip_margin_left;
     private static final int mDefaultMarginResRight = R.dimen.simpletooltip_margin_right;
@@ -120,7 +123,7 @@ public class SimpleTooltip implements PopupWindow.OnDismissListener {
     private final float mAnimationPadding;
     private final long mAnimationDuration;
     public static float mArrowWidth;
-    public static float mArrowHeight;
+    private final float mArrowHeight;
     private final boolean mFocusable;
     private boolean dismissed = false;
     private int mHighlightShape = OverlayView.HIGHLIGHT_SHAPE_OVAL;
@@ -155,9 +158,10 @@ public class SimpleTooltip implements PopupWindow.OnDismissListener {
         mFocusable = builder.focusable;
         mRootView = SimpleTooltipUtils.findFrameLayout(mAnchorView);
         mHighlightShape = builder.highlightShape;
-        mMarginLeft = mContext.getResources().getDimension(mDefaultMarginResLeft);
-        mMarginRight = mContext.getResources().getDimension(mDefaultMarginResRight);
+        mMarginLeft = builder.marginLeft;
+        mMarginRight = builder.marginRight;
         width = Resources.getSystem().getDisplayMetrics().widthPixels - (int) mMarginLeft - (int) mMarginRight;
+        mDefaultBorderColorRes = mContext.getResources().getColor(R.color.common_border_color);
 
         init();
     }
@@ -175,6 +179,7 @@ public class SimpleTooltip implements PopupWindow.OnDismissListener {
         mPopupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         mPopupWindow.setOutsideTouchable(true);
         mPopupWindow.setTouchable(true);
+        mPopupWindow.setWidth(width);
         mPopupWindow.setTouchInterceptor(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -247,11 +252,13 @@ public class SimpleTooltip implements PopupWindow.OnDismissListener {
                 location.y = anchorCenter.y - mPopupWindow.getContentView().getHeight() / 2f;
                 break;
             case Gravity.TOP:
-                location.x = anchorCenter.x - mPopupWindow.getContentView().getWidth() / 2f;
+//                location.x = anchorCenter.x - mPopupWindow.getContentView().getWidth() / 2f;
+                location.x = mMarginLeft;
                 location.y = anchorRect.top - mPopupWindow.getContentView().getHeight() - mMargin;
                 break;
             case Gravity.BOTTOM:
-                location.x = anchorCenter.x - mPopupWindow.getContentView().getWidth() / 2f;
+//                location.x = anchorCenter.x - mPopupWindow.getContentView().getWidth() / 2f;
+                location.x = mMarginLeft;
                 location.y = anchorRect.bottom + mMargin;
                 break;
             case Gravity.CENTER:
@@ -310,7 +317,7 @@ public class SimpleTooltip implements PopupWindow.OnDismissListener {
 
         LinearLayout.LayoutParams contentViewParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, 0);
         contentViewParams.gravity = Gravity.CENTER;
-        contentViewParams.setMargins((int) SimpleTooltipUtils.dpFromPx(mMarginLeft), 0, (int) SimpleTooltipUtils.dpFromPx(mMarginRight), 0);
+//        contentViewParams.setMargins((int) SimpleTooltipUtils.dpFromPx(mMarginLeft), 0, (int) SimpleTooltipUtils.dpFromPx(mMarginRight), 0);
         mContentView.setLayoutParams(contentViewParams);
 
         mContentLayout = linearLayout;
@@ -421,7 +428,8 @@ public class SimpleTooltip implements PopupWindow.OnDismissListener {
                 RectF contentViewRect = SimpleTooltipUtils.calculeRectOnScreen(mContentLayout);
                 float x, y;
                 if (mArrowDirection == ArrowDrawable.TOP || mArrowDirection == ArrowDrawable.BOTTOM) {
-                    x = mContentLayout.getPaddingLeft() + SimpleTooltipUtils.pxFromDp(2);
+//                    x = mContentLayout.getPaddingLeft() + SimpleTooltipUtils.pxFromDp(2);
+                    x = mContentLayout.getPaddingLeft();
                     float centerX = (contentViewRect.width() / 2f) - (mArrowView.getWidth() / 2f);
                     float newX = centerX - (contentViewRect.centerX() - achorRect.centerX());
                     if (newX > x) {
@@ -541,6 +549,7 @@ public class SimpleTooltip implements PopupWindow.OnDismissListener {
     @SuppressWarnings({"SameParameterValue", "unused"})
     public static class Builder {
 
+        public static final int LEFT = 0, TOP = 1, RIGHT = 2, BOTTOM = 3, AUTO = 4;
         private final Context context;
         private boolean dismissOnInsideTouch = true;
         private boolean dismissOnOutsideTouch = true;
@@ -560,12 +569,16 @@ public class SimpleTooltip implements PopupWindow.OnDismissListener {
         private Drawable arrowDrawable;
         private boolean animated = false;
         private float margin = -1;
+        private float marginLeft = -1;
+        private float marginRight = -1;
         private float padding = -1;
         private float animationPadding = -1;
         private OnDismissListener onDismissListener;
         private OnShowListener onShowListener;
         private long animationDuration;
         private int backgroundColor;
+        private int backgroundBorderBottom;
+        private int backgroundBorderTop;
         private int textColor;
         private int arrowColor;
         private float arrowHeight;
@@ -582,22 +595,27 @@ public class SimpleTooltip implements PopupWindow.OnDismissListener {
             if (backgroundColor == 0) {
                 backgroundColor = SimpleTooltipUtils.getColor(context, mDefaultBackgroundColorRes);
             }
+            if (backgroundBorderBottom == 0) {
+                backgroundBorderBottom = R.drawable.border_tooltip_bottom;
+            }
+            if (backgroundBorderTop == 0) {
+                backgroundBorderTop = R.drawable.border_tooltip_top;
+            }
             if (textColor == 0) {
                 textColor = SimpleTooltipUtils.getColor(context, mDefaultTextColorRes);
             }
-            if (contentView == null) {
-                TextView tv = new TextView(context);
-                SimpleTooltipUtils.setTextAppearance(tv, mDefaultTextAppearanceRes);
-//                tv.setBackgroundColor(backgroundColor);
-                tv.setBackgroundResource(R.drawable.rounded_corner);
-                tv.setTextColor(textColor);
-                contentView = tv;
-            }
+
             if (arrowColor == 0) {
                 arrowColor = SimpleTooltipUtils.getColor(context, mDefaultArrowColorRes);
             }
             if (margin < 0) {
                 margin = context.getResources().getDimension(mDefaultMarginRes);
+            }
+            if (marginLeft < 0) {
+                marginLeft = context.getResources().getDimension(mDefaultMarginResLeft);
+            }
+            if (marginRight < 0) {
+                marginRight = context.getResources().getDimension(mDefaultMarginResRight);
             }
             if (padding < 0) {
                 padding = context.getResources().getDimension(mDefaultPaddingRes);
@@ -620,6 +638,24 @@ public class SimpleTooltip implements PopupWindow.OnDismissListener {
                     arrowWidth = context.getResources().getDimension(mDefaultArrowWidthRes);
                 if (arrowHeight == 0)
                     arrowHeight = context.getResources().getDimension(mDefaultArrowHeightRes);
+            }
+            if (contentView == null) {
+                TextView tv = new TextView(context);
+                SimpleTooltipUtils.setTextAppearance(tv, mDefaultTextAppearanceRes);
+                switch (arrowDirection) {
+                    case LEFT:
+                        break;
+                    case TOP:
+                        tv.setBackgroundResource(backgroundBorderBottom);
+                        break;
+                    case RIGHT:
+                        break;
+                    case BOTTOM:
+                        tv.setBackgroundResource(backgroundBorderTop);
+                        break;
+                }
+                tv.setTextColor(textColor);
+                contentView = tv;
             }
             if (highlightShape < 0 || highlightShape > OverlayView.HIGHLIGHT_SHAPE_RECTANGULAR) {
                 highlightShape = OverlayView.HIGHLIGHT_SHAPE_OVAL;
@@ -928,8 +964,29 @@ public class SimpleTooltip implements PopupWindow.OnDismissListener {
          * @return <tt>this</tt>
          * @see Builder#margin(float)
          */
+
         public Builder margin(@DimenRes int marginRes) {
             this.margin = context.getResources().getDimension(marginRes);
+            return this;
+        }
+
+        public Builder marginLeft(@DimenRes int marginRes) {
+            this.marginLeft = context.getResources().getDimension(marginRes);
+            return this;
+        }
+
+        public Builder marginLeft(float margin) {
+            this.marginLeft = margin;
+            return this;
+        }
+
+        public Builder marginRight(@DimenRes int marginRes) {
+            this.marginRight = context.getResources().getDimension(marginRes);
+            return this;
+        }
+
+        public Builder marginRight(float margin) {
+            this.marginRight = margin;
             return this;
         }
 
@@ -940,6 +997,23 @@ public class SimpleTooltip implements PopupWindow.OnDismissListener {
 
         public Builder backgroundColor(@ColorInt int backgroundColor) {
             this.backgroundColor = backgroundColor;
+            return this;
+        }
+
+        public Builder backgroundBorder(@DrawableRes int backgroundBorder) {
+            switch (SimpleTooltipUtils.tooltipGravityToArrowDirection(gravity)) {
+                case LEFT:
+                    break;
+                case TOP:
+                    this.backgroundBorderBottom = backgroundBorder;
+                    break;
+                case RIGHT:
+                    break;
+                case BOTTOM:
+                    this.backgroundBorderTop = backgroundBorder;
+                    break;
+            }
+
             return this;
         }
 

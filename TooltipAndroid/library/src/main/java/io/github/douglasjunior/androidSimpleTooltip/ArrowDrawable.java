@@ -45,6 +45,7 @@ public class ArrowDrawable extends ColorDrawable {
     private final Paint mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private final int mBackgroundColor;
     private Path mPath;
+    private Path mPathNotBorder;
     private final int mDirection;
     private int width;
 
@@ -63,6 +64,7 @@ public class ArrowDrawable extends ColorDrawable {
     private synchronized void updatePath(Rect bounds) {
         width = (int) SimpleTooltip.mArrowWidth;
         mPath = new Path();
+        mPathNotBorder = new Path();
         int x = bounds.width() * 3 / 4 - width/2;
 
         switch (mDirection) {
@@ -78,10 +80,10 @@ public class ArrowDrawable extends ColorDrawable {
 //                mPath.lineTo(bounds.width(), bounds.height());
 //                mPath.lineTo(0, bounds.height());
 //                break;
-                mPath.moveTo(x, bounds.height());
-                mPath.lineTo(x + width/2, 0);
-                mPath.lineTo(x + width, bounds.height() + 1);
-                mPath.lineTo(x, bounds.height() + 1);
+                mPathNotBorder.moveTo(x, bounds.height());
+                mPathNotBorder.lineTo(x + width/2, 0);
+                mPathNotBorder.lineTo(x + width, bounds.height() + 1);
+                mPathNotBorder.lineTo(x, bounds.height() + 1);
                 break;
             case RIGHT:
                 mPath.moveTo(0, 0);
@@ -90,10 +92,15 @@ public class ArrowDrawable extends ColorDrawable {
                 mPath.lineTo(0, 0);
                 break;
             case BOTTOM:
-                mPath.moveTo(0, 0);
-                mPath.lineTo(bounds.width() / 2, bounds.height());
-                mPath.lineTo(bounds.width(), 0);
-                mPath.lineTo(0, 0);
+//                mPath.moveTo(0, 0);
+//                mPath.lineTo(bounds.width() / 2, bounds.height());
+//                mPath.lineTo(bounds.width(), 0);
+//                mPath.lineTo(0, 0);
+//                break;
+                mPathNotBorder.moveTo(x, 0);
+                mPathNotBorder.lineTo(x + width/2, bounds.height());
+                mPathNotBorder.lineTo(x + width, 0);
+                mPathNotBorder.lineTo(x, 0);
                 break;
         }
 
@@ -108,15 +115,33 @@ public class ArrowDrawable extends ColorDrawable {
         canvas.drawColor(mBackgroundColor);
         if (mPath == null)
             updatePath(getBounds());
+        canvas.drawPath(mPathNotBorder, mPaint);
         canvas.drawPath(mPath, mPaint);
 
         mPaint.setStyle(Paint.Style.STROKE);
-        mPaint.setColor(0x88ff9900);
-        mPaint.setStrokeWidth(2);
+        mPaint.setColor(SimpleTooltip.mDefaultBorderColorRes);
+        mPaint.setStrokeWidth(3);
         canvas.drawPath(mPath, mPaint);
 
-        canvas.drawLine(0, canvas.getHeight() - 1, x, canvas.getHeight() - 1, mPaint);
-        canvas.drawLine(x + width, canvas.getHeight() - 1, canvas.getWidth(), canvas.getHeight() - 1, mPaint);
+        switch (mDirection) {
+            case LEFT:
+                break;
+            case TOP:
+                canvas.drawLine(SimpleTooltipUtils.pxFromDp(2.5f), canvas.getHeight() - 1, x, canvas.getHeight() - 1, mPaint);
+                canvas.drawLine(x + width, canvas.getHeight() - 1, canvas.getWidth() - SimpleTooltipUtils.pxFromDp(2.5f), canvas.getHeight() - 1, mPaint);
+                canvas.drawLine(x, canvas.getHeight() - 1, x + width/2, 0, mPaint);
+                canvas.drawLine(x + width/2, 0, x + width, canvas.getHeight() - 1, mPaint);
+                break;
+            case RIGHT:
+                break;
+            case BOTTOM:
+                canvas.drawLine(SimpleTooltipUtils.pxFromDp(2.5f), 1, x, 1, mPaint);
+                canvas.drawLine(x + width, 1, canvas.getWidth() - SimpleTooltipUtils.pxFromDp(2.5f), 1, mPaint);
+                canvas.drawLine(x, 1, x + width/2, canvas.getHeight(), mPaint);
+                canvas.drawLine(x + width/2, canvas.getHeight(), x + width, 1, mPaint);
+                break;
+        }
+
     }
 
     @Override
