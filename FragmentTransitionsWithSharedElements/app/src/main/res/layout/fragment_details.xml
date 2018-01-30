@@ -16,7 +16,7 @@
         tools:ignore="ContentDescription,UnusedAttribute" />
 
     <TextView
-        android:transitionName="kittenImage1"
+        android:transitionName="kittenTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/details_title_text"
