@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout
+        android:id="@+id/activity_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        android:orientation="vertical">
+
+        <com.example.cpu10225.zpedittext.ZPEditText
+            android:id="@+id/sdada"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:et_hint="EditText"
+            app:error_message="Ban chua nhap demo"
+            android:background="#00FF00"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:background="#00FF00"/>
+
+        <com.example.cpu10225.zpedittext.ZPEditText
+            android:id="@+id/sdadadas"
+            android:layout_marginTop="50dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:et_hint="EditText"
+            app:error_message="Ban chua nhap demo"
+            android:background="#00FF00"/>
+
+    </LinearLayout>
+</merge>
