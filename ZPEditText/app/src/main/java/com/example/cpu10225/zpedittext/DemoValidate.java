@@ -11,7 +11,7 @@ public class DemoValidate {
     public DemoValidate() {
         mValidates = new ArrayList<>();
 
-        mValidates.add(new ZPEditTextValidate("Chuoi phai lon hon 1 ky tu") {
+        mValidates.add(new ZPEditTextValidate("Chuoi phai lonz hon 1 ky tu") {
             @Override
             public boolean isValid(@NonNull CharSequence s) {
                 return s.length() > 1;

@@ -14,8 +14,12 @@
     </style>
 
     <style name="ZPEditTextStyle" parent="TextAppearance.AppCompat">
-        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textColor">@color/colorRed</item>
         <item name="android:textSize">12sp</item>
     </style>
 
+    <style name="ZPEditTextStyleValidate" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textSize">12sp</item>
+    </style>
 </resources>
