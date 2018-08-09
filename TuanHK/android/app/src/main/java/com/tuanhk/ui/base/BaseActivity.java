@@ -27,7 +27,7 @@ public class BaseActivity extends AppCompatActivity implements BaseMvpView {
         super.onCreate(savedInstanceState);
         mUserComponent = DaggerUserComponent.builder()
                 .userModule(new UserModule(this))
-                .applicationComponent(((TuanHKApp) getApplication()).getComponent())
+                .applicationComponent(((TuanHKApp) getApplication()).getAppComponent())
                 .build();
     }
 

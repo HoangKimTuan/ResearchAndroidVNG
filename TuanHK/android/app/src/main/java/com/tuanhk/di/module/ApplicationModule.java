@@ -17,6 +17,9 @@ import com.tuanhk.data.db.DbHelper;
 import com.tuanhk.data.db.DbOpenHelper;
 import com.tuanhk.data.network.ApiHelper;
 import com.tuanhk.data.network.AppApiHelper;
+import com.tuanhk.splashscreen.ISplashScreenView;
+import com.tuanhk.splashscreen.SplashScreenPresenter;
+import com.tuanhk.ui.presenter.IPresenter;
 import com.tuanhk.util.AppConstants;
 import com.tuanhk.util.anotation.ApplicationContext;
 import com.tuanhk.util.anotation.DatabaseInfo;
@@ -117,5 +120,12 @@ public class ApplicationModule {
     @Singleton
     DataManager provideDataManager(AppDataManager appDataManager) {
         return appDataManager;
+    }
+
+
+    @Provides
+    @Singleton
+    SplashScreenPresenter provideSplashScreenPresenterer() {
+        return new SplashScreenPresenter();
     }
 }

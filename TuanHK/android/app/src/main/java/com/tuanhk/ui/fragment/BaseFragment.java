@@ -14,8 +14,10 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 
 import com.tuanhk.TuanHKApp;
+import com.tuanhk.di.component.ApplicationComponent;
 import com.tuanhk.di.component.DemoComponent;
 import com.tuanhk.di.component.UserComponent;
+import com.tuanhk.navigation.Navigator;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -34,11 +36,14 @@ public abstract class BaseFragment extends Fragment {
 //    private Handler mShowLoadingTimeoutHandler;
 //    private Runnable mShowLoadingTimeoutRunnable;
 
-//    protected final Navigator navigator = AndroidApplication.instance().getAppComponent().navigator();
+    protected final Navigator navigator = TuanHKApp.instance().getAppComponent().navigator();
 //    protected final UserConfig userConfig = AndroidApplication.instance().getAppComponent().userConfig();
 
     protected DemoComponent getDemoComponent() {
         return TuanHKApp.instance().getDemoComponent();
+    }
+    public ApplicationComponent getAppComponent() {
+        return TuanHKApp.instance().getAppComponent();
     }
 
     @Nullable

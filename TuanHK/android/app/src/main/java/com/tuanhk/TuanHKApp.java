@@ -35,7 +35,7 @@ public class TuanHKApp extends Application {
                 .build();
     }
 
-    public ApplicationComponent getComponent() {
+    public ApplicationComponent getAppComponent() {
         return mApplicationComponent;
     }
 
