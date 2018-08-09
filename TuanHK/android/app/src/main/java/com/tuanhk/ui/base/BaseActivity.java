@@ -8,8 +8,8 @@ import android.view.MenuItem;
 
 import com.tuanhk.R;
 import com.tuanhk.TuanHKApp;
-import com.tuanhk.di.component.UserComponent;
 import com.tuanhk.di.component.DaggerUserComponent;
+import com.tuanhk.di.component.UserComponent;
 import com.tuanhk.di.module.UserModule;
 import com.tuanhk.ui.comment.like.CommentLikeActivity;
 import com.tuanhk.ui.main.MainActivity;

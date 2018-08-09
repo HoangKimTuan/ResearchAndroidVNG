@@ -27,7 +27,7 @@ public class DemoFragment extends BaseFragment implements DemoView {
 
     @Override
     protected void setupFragmentComponent() {
-        getUserComponent().inject(this);
+        getDemoComponent().inject(this);
     }
 
     @Override

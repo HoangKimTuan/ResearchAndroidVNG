@@ -3,6 +3,7 @@ package com.tuanhk.di.component;
 import android.app.Application;
 import android.content.Context;
 
+import com.tuanhk.TuanHKApp;
 import com.tuanhk.data.DataManager;
 import com.tuanhk.di.module.ApplicationModule;
 import com.tuanhk.util.anotation.ApplicationContext;
@@ -18,7 +19,7 @@ import dagger.Component;
 @Singleton
 @Component(modules = ApplicationModule.class)
 public interface ApplicationComponent {
-    void inject(com.tuanhk.TuanHKApp app);
+    void inject(TuanHKApp app);
     Application application();
     DataManager dataManager();
     @ApplicationContext

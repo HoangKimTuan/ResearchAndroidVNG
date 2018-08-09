@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 
 import com.tuanhk.TuanHKApp;
+import com.tuanhk.di.component.DemoComponent;
 import com.tuanhk.di.component.UserComponent;
 
 import butterknife.ButterKnife;
@@ -30,14 +31,14 @@ public abstract class BaseFragment extends Fragment {
 //    private Snackbar mSnackBar;
 //    private SweetAlertDialog mProgressDialog;
     private Unbinder unbinder;
-    private Handler mShowLoadingTimeoutHandler;
-    private Runnable mShowLoadingTimeoutRunnable;
+//    private Handler mShowLoadingTimeoutHandler;
+//    private Runnable mShowLoadingTimeoutRunnable;
 
 //    protected final Navigator navigator = AndroidApplication.instance().getAppComponent().navigator();
 //    protected final UserConfig userConfig = AndroidApplication.instance().getAppComponent().userConfig();
 
-    protected UserComponent getUserComponent() {
-        return TuanHKApp.getUserComponent();
+    protected DemoComponent getDemoComponent() {
+        return TuanHKApp.instance().getDemoComponent();
     }
 
     @Nullable
@@ -55,8 +56,8 @@ public abstract class BaseFragment extends Fragment {
 //        cancelShowLoadingTimeoutRunnable();
 //        hideProgressDialog();
         super.onDestroyView();
-        mShowLoadingTimeoutHandler = null;
-        mShowLoadingTimeoutRunnable = null;
+//        mShowLoadingTimeoutHandler = null;
+//        mShowLoadingTimeoutRunnable = null;
 //        mProgressDialog = null;
         unbinder.unbind();
     }

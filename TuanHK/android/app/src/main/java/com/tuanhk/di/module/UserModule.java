@@ -31,9 +31,6 @@ public class UserModule {
     public UserModule(BaseMvpView mView) {
         this.mView = mView;
     }
-    public UserModule() {
-
-    }
 
     @Provides
     BaseMvpView provideBaseMvpView() {
@@ -66,5 +63,4 @@ public class UserModule {
     PhotoLikeMvpPresenter<PhotoLikeMvpView> providePhotoLikeMvpPresenter(PhotoLikePresenter<PhotoLikeMvpView> presenter) {
         return presenter;
     }
-
 }

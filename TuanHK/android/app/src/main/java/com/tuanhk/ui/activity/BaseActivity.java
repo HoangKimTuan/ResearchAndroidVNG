@@ -131,7 +131,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 //    }
 
     protected ApplicationComponent getAppComponent() {
-        return TuanHKApp.getComponent();
+        return TuanHKApp.instance().getComponent();
     }
 
 //    public void showNetworkErrorDialog() {

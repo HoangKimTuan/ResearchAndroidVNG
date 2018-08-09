@@ -24,5 +24,4 @@ public interface UserComponent {
     void inject(CommentLikeActivity commentLikeActivity);
     void inject(PhotoActivity photoActivity);
     void inject(PhotoLikeActivity photoLikeActivity);
-    void inject(DemoFragment demoFragment);
 }
